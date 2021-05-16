@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./frontend/",
+        "allowJs": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "noEmit": true,
+        "jsx": "react-jsx",
+        "sourceMap": true,
+        "declaration": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "experimentalDecorators": true,
+        "noFallthroughCasesInSwitch": true,
+        "lib": ["dom", "es2019.array"],
+        "target": "es5",
+        "isolatedModules": true
+    },
+    "include": ["frontend/**/*"],
+    "exclude": ["node_modules/**/*", "staticfiles/**/*", "frontend/dist/**/*"]
+}
