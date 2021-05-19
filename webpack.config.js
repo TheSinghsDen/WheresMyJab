@@ -53,16 +53,7 @@ function createEntry(entry) {
         name: entry,
         mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
         devtool: process.env.NODE_ENV === 'production' ? 'source-map' : 'inline-source-map',
-        entry: {
-            [entry]:
-                entry === 'main' || entry === 'cypress'
-                    ? './frontend/src/index.tsx'
-                    : entry === 'toolbar'
-                    ? './frontend/src/toolbar/index.tsx'
-                    : entry === 'shared_dashboard'
-                    ? './frontend/src/scenes/dashboard/SharedDashboard.tsx'
-                    : null,
-        },
+        entry: './frontend/src/index.tsx',
         watchOptions: {
             ignored: /node_modules/,
         },
@@ -75,7 +66,7 @@ function createEntry(entry) {
                     ? '/static/'
                     : process.env.JS_URL
                     ? `${process.env.JS_URL}${process.env.JS_URL.endsWith('/') ? '' : '/'}static/`
-                    : `http${process.env.LOCAL_HTTPS ? 's' : ''}://${webpackDevServerFrontendAddr}:8234/static/`,
+                    : `http${process.env.LOCAL_HTTPS ? 's' : ''}://${webpackDevServerFrontendAddr}:3000/static/`,
         },
         resolve: {
             extensions: ['.js', '.ts', '.tsx'],
@@ -185,12 +176,12 @@ function createEntry(entry) {
                       contentBase: path.join(__dirname, 'frontend', 'dist'),
                       hot: true,
                       host: webpackDevServerHost,
-                      port: 8234,
+                      port: 3000,
                       stats: 'minimal',
                       disableHostCheck: !!process.env.LOCAL_HTTPS,
                       public: process.env.JS_URL
                           ? new URL(process.env.JS_URL).host
-                          : `${webpackDevServerFrontendAddr}:8234`,
+                          : `${webpackDevServerFrontendAddr}:3000`,
                       headers: {
                           'Access-Control-Allow-Origin': '*',
                           'Access-Control-Allow-Headers': '*',
@@ -215,30 +206,8 @@ function createEntry(entry) {
                       // we need these only once per build
                       new HtmlWebpackPlugin({
                           alwaysWriteToDisk: true,
-                          title: 'PostHog',
+                          title: 'WheresMyJab',
                           template: path.join(__dirname, 'frontend', 'src', 'index.html'),
-                      }),
-
-                      new HtmlWebpackPlugin({
-                          alwaysWriteToDisk: true,
-                          title: 'PostHog',
-                          filename: 'layout.html',
-                          inject: false,
-                          template: path.join(__dirname, 'frontend', 'src', 'layout.ejs'),
-                      }),
-                      new HtmlWebpackHarddiskPlugin(),
-                  ]
-                : entry === 'shared_dashboard'
-                ? [
-                      new MiniCssExtractPlugin({
-                          filename: '[name].css',
-                          ignoreOrder: true,
-                      }),
-                      new HtmlWebpackPlugin({
-                          alwaysWriteToDisk: true,
-                          title: 'PostHog',
-                          filename: 'shared_dashboard.html',
-                          template: path.join(__dirname, 'frontend', 'src', 'shared_dashboard.ejs'),
                       }),
                       new HtmlWebpackHarddiskPlugin(),
                   ]
@@ -250,7 +219,5 @@ function createEntry(entry) {
 }
 
 // main = app
-// toolbar = toolbar
-// shared_dashboard = publicly available dashboard
-module.exports = () => [createEntry('main'), createEntry('toolbar'), createEntry('shared_dashboard')]
+module.exports = () => [createEntry('main')]
 module.exports.createEntry = createEntry
