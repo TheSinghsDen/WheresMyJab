@@ -5,7 +5,6 @@ style files without adding already imported styles. */
 // Global components
 @import 'node_modules/react-toastify/dist/ReactToastify';
 @import './vars';
-
 @font-face {
     font-family: 'GoshaSans-Bold';
     src: url('../public/GoshaSans-Bold.woff2') format('woff2'), url('../public/GoshaSans-Bold.woff') format('woff');
@@ -100,7 +99,6 @@ style files without adding already imported styles. */
     font-size: 22px;
     line-height: 26px;
     font-weight: 700;
-
     &.highlighted {
         padding: $default_spacing $default_spacing $default_spacing $default_spacing / 2;
     }
@@ -235,11 +233,9 @@ code.code {
 .main-app-content {
     /* top | horizontal | bottom */
     padding: 0px $default_spacing * 3 $default_spacing * 3;
-
     @media (min-width: 480px) and (max-width: 639px) {
         padding: $default_spacing $default_spacing * 2 !important;
     }
-
     @media (max-width: 480px) {
         padding: $default_spacing $default_spacing !important;
     }
@@ -282,7 +278,6 @@ code.code {
 }
 
 // Toasts
-
 .Toastify__toast-container {
     opacity: 1;
     transform: none;
@@ -297,12 +292,10 @@ code.code {
     border: 1px solid $border;
     @extend .text-default;
     color: $text_default;
-
     h1 {
         font-size: 1.14rem;
         font-weight: bold;
     }
-
     .action-bar {
         @extend .text-small;
         color: $text_muted;
@@ -357,13 +350,11 @@ code.code {
 }
 
 // Table styles
-
 .table-bordered td {
     border: 1px solid $border;
 }
 
 // Card styles
-
 .ant-card-body > :first-child {
     margin-top: 0;
 }
@@ -373,27 +364,22 @@ code.code {
 }
 
 // Form & input styles
-
 .input-set {
     padding-bottom: $default_spacing;
     color: $text_default;
-
     label {
         font-weight: bold;
         @extend .text-default;
     }
-
     .caption {
         color: $text_muted;
         @extend .text-small;
     }
-
     .ant-radio-button-wrapper {
         // To properly handle label styles above
         font-weight: normal !important;
         line-height: 30px !important;
     }
-
     &.errored {
         .caption {
             color: $danger;
@@ -416,7 +402,6 @@ code.code {
 }
 
 // Button styles
-
 .btn-close {
     color: $text_muted;
 }
@@ -461,7 +446,6 @@ code.code {
 }
 
 // Overlays styles
-
 #bottom-notice {
     z-index: 10500;
     display: flex;
@@ -531,7 +515,6 @@ code.code {
 }
 
 // Overlays
-
 .overlay__parent {
     position: relative;
 }
@@ -562,21 +545,17 @@ code.code {
 }
 
 // Stateful badges
-
 .stateful-badge {
     padding: 2px 8px;
     border-radius: 2px;
     font-weight: bold;
-
     &.or {
         background-color: $blue_300;
     }
-
     &.width-locked {
         width: 40px;
         text-align: center;
     }
-
     &.and {
         background-color: $yellow_100;
         color: $primary_alt;
@@ -584,12 +563,10 @@ code.code {
 }
 
 // Simple tags
-
 .simple-tag {
     border-radius: $radius;
     font-weight: bold;
     padding: 2px 6px;
-
     &.tag-light-lilac {
         background-color: $hc_light_lilac;
         color: $hc_navy;
