@@ -1,5 +1,6 @@
 import React from 'react'
 import { Row, Typography, Select, Radio, Button } from 'antd'
+import { GithubOutlined } from '@ant-design/icons'
 import './index.scss'
 
 const { Title, Text } = Typography
@@ -8,6 +9,12 @@ const { Option } = Select
 const HomePage = (): JSX.Element => {
     return (
         <div>
+            <Row justify="end" align="middle" className="contribute">
+                <Button type="primary" shape="round" icon={<GithubOutlined />}>
+                    Collaborate
+                </Button>
+            </Row>
+
             <Row justify="center" align="middle" className="title">
                 <Title level={2}>WheresMyJab</Title>
             </Row>
@@ -42,6 +49,10 @@ const HomePage = (): JSX.Element => {
                     <Option value="lucy">Lucy</Option>
                     <Option value="tom">Tom</Option>
                 </Select>
+            </Row>
+
+            <Row justify="center" align="middle" className="ageGroup">
+                <Text type="secondary">Age Group</Text>
             </Row>
 
             <Row justify="center" align="middle" className="radio">
