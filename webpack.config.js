@@ -12,24 +12,7 @@ const webpackDevServerFrontendAddr = webpackDevServerHost === '0.0.0.0' ? '127.0
 
 function createEntry(entry) {
     const commonLoadersForSassAndLess = [
-        entry === 'toolbar'
-            ? {
-                  loader: 'style-loader',
-                  options: {
-                      insert: function insertAtTop(element) {
-                          // tunnel behind the shadow root
-                          if (window.__PHGTLB_ADD_STYLES__) {
-                              window.__PHGTLB_ADD_STYLES__(element)
-                          } else {
-                              if (!window.__PHGTLB_STYLES__) {
-                                  window.__PHGTLB_STYLES__ = []
-                              }
-                              window.__PHGTLB_STYLES__.push(element)
-                          }
-                      },
-                  },
-              }
-            : entry === 'cypress'
+        entry === 'cypress'
             ? {
                   loader: 'style-loader',
               }
