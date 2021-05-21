@@ -18,18 +18,13 @@ const HomePage = (): JSX.Element => {
             <Row justify="center" align="middle" className="title">
                 <Title level={2}>WheresMyJab</Title>
             </Row>
+
             <Row justify="center" align="middle" className="description">
                 <Text type="secondary"> Search for vaccination slots and get notified when available</Text>
             </Row>
+
             <Row justify="center" align="middle" className="select">
-                <Select
-                    showSearch
-                    style={{ width: '100%' }}
-                    size="large"
-                    placeholder="State"
-                    optionFilterProp="children"
-                    filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
-                >
+                <Select showSearch style={{ width: '100%' }} size="large" placeholder="State">
                     <Option value="jack">Jack</Option>
                     <Option value="lucy">Lucy</Option>
                     <Option value="tom">Tom</Option>
@@ -37,14 +32,7 @@ const HomePage = (): JSX.Element => {
             </Row>
 
             <Row justify="center" align="middle" className="select">
-                <Select
-                    showSearch
-                    style={{ width: '100%' }}
-                    size="large"
-                    placeholder="District"
-                    optionFilterProp="children"
-                    filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
-                >
+                <Select showSearch style={{ width: '100%' }} size="large" placeholder="District">
                     <Option value="jack">Jack</Option>
                     <Option value="lucy">Lucy</Option>
                     <Option value="tom">Tom</Option>
