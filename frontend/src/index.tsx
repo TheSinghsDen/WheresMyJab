@@ -1,5 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
+import { getContext } from 'kea'
 
 import App from './scenes/App'
 import { initKea } from './initKea'
@@ -9,10 +11,9 @@ import { GlobalStyles } from './GlobalStyles'
 initKea()
 
 ReactDOM.render(
-    <div>
+    <Provider store={getContext().store}>
         <GlobalStyles />
         <App />
-    </div>,
-
+    </Provider>,
     document.getElementById('root')
 )

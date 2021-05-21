@@ -1,12 +1,16 @@
 import React from 'react'
 import { Row, Typography, Select, Radio, Button } from 'antd'
 import { GithubOutlined } from '@ant-design/icons'
+import { homePageLogic } from './homePageLogic'
 import './index.scss'
+import { useValues } from 'kea'
 
 const { Title, Text } = Typography
 const { Option } = Select
 
 const HomePage = (): JSX.Element => {
+    const { states } = useValues(homePageLogic)
+
     return (
         <div>
             <Row justify="end" align="middle" className="contribute">
@@ -24,10 +28,13 @@ const HomePage = (): JSX.Element => {
             </Row>
 
             <Row justify="center" align="middle" className="select">
-                <Select showSearch style={{ width: '100%' }} size="large" placeholder="State">
-                    <Option value="jack">Jack</Option>
-                    <Option value="lucy">Lucy</Option>
-                    <Option value="tom">Tom</Option>
+                <Select showSearch style={{ width: '100%' }} size="large" placeholder="State" optionFilterProp="title">
+                    {states &&
+                        states.map((state) => (
+                            <Option key={state.state_id} value={state.state_id} title={state.state_name}>
+                                {state.state_name}
+                            </Option>
+                        ))}
                 </Select>
             </Row>
 
