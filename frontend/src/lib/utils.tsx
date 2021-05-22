@@ -1,5 +1,6 @@
 import React from 'react'
 import { toast } from 'react-toastify'
+import { Spin } from 'antd'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 
 export function errorToast(title?: string, message?: string, errorDetail?: string, errorCode?: string): void {
@@ -67,4 +68,16 @@ export function identifierToHuman(identifier: string | number): string {
         words.push(currentWord)
     }
     return words.map((word) => word[0].toUpperCase() + word.slice(1)).join(' ')
+}
+
+export function delay(ms: number): Promise<number> {
+    return new Promise((resolve) => window.setTimeout(resolve, ms))
+}
+
+export function SceneLoading(): JSX.Element {
+    return (
+        <div style={{ textAlign: 'center', marginTop: '20vh' }}>
+            <Spin />
+        </div>
+    )
 }
