@@ -3,13 +3,15 @@ import { Row, Typography, Select, Radio, Button } from 'antd'
 import { GithubOutlined } from '@ant-design/icons'
 import { homePageLogic } from './homePageLogic'
 import './index.scss'
-import { useValues } from 'kea'
+import { useActions, useValues } from 'kea'
 
 const { Title, Text } = Typography
 const { Option } = Select
 
 const HomePage = (): JSX.Element => {
-    const { states } = useValues(homePageLogic)
+    const { states, selectedState, statesLoading, districts, districtsLoading, selectedDistrict } =
+        useValues(homePageLogic)
+    const { setSelectedState, setSelectedDistrict } = useActions(homePageLogic)
 
     return (
         <div>
@@ -28,7 +30,17 @@ const HomePage = (): JSX.Element => {
             </Row>
 
             <Row justify="center" align="middle" className="select">
-                <Select showSearch style={{ width: '100%' }} size="large" placeholder="State" optionFilterProp="title">
+                <Select
+                    showSearch
+                    style={{ width: '100%' }}
+                    size="large"
+                    placeholder="State"
+                    optionFilterProp="title"
+                    value={states && selectedState}
+                    onChange={(value) => setSelectedState(value)}
+                    disabled={statesLoading}
+                    loading={statesLoading}
+                >
                     {states &&
                         states.map((state) => (
                             <Option key={state.state_id} value={state.state_id} title={state.state_name}>
@@ -39,10 +51,27 @@ const HomePage = (): JSX.Element => {
             </Row>
 
             <Row justify="center" align="middle" className="select">
-                <Select showSearch style={{ width: '100%' }} size="large" placeholder="District">
-                    <Option value="jack">Jack</Option>
-                    <Option value="lucy">Lucy</Option>
-                    <Option value="tom">Tom</Option>
+                <Select
+                    showSearch
+                    style={{ width: '100%' }}
+                    size="large"
+                    placeholder="District"
+                    optionFilterProp="title"
+                    value={districts && selectedDistrict}
+                    onChange={(value) => setSelectedDistrict(value)}
+                    disabled={districtsLoading}
+                    loading={districtsLoading}
+                >
+                    {districts &&
+                        districts.map((district) => (
+                            <Option
+                                key={district.district_id}
+                                value={district.district_id}
+                                title={district.district_name}
+                            >
+                                {district.district_name}
+                            </Option>
+                        ))}
                 </Select>
             </Row>
 
@@ -58,7 +87,7 @@ const HomePage = (): JSX.Element => {
             </Row>
 
             <Row justify="center" align="middle" className="radio">
-                <Button type="primary" shape="round" size="large">
+                <Button type="primary" shape="round" size="large" disabled={!selectedState || !selectedDistrict}>
                     Search Slots
                 </Button>
             </Row>
