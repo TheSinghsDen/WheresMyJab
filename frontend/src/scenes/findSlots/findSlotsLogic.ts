@@ -71,6 +71,14 @@ export const findSlotsLogic = kea<findSlotsLogicType>({
         ],
     }),
 
+    // urlToAction: ({ actions }) => ({
+    //     '/findSlots': ({ }, searchParams: Record) => {
+    //         if(searchParams.state_id) {
+    //             actions.setSelectedState(searchParams.state_id)
+    //         }
+    //     }
+    // }),
+
     events: ({ actions }) => ({
         afterMount: [actions.loadStates],
     }),

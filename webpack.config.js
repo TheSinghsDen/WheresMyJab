@@ -157,6 +157,7 @@ function createEntry(entry) {
             ? {
                   devServer: {
                       contentBase: path.join(__dirname, 'frontend', 'dist'),
+                      historyApiFallback: true,
                       hot: true,
                       host: webpackDevServerHost,
                       port: 3000,

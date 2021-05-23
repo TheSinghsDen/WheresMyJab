@@ -17,7 +17,12 @@ const FindSlots = (): JSX.Element => {
     return (
         <div>
             <Row justify="end" align="middle" className="contribute">
-                <Button type="primary" shape="round" icon={<GithubOutlined />}>
+                <Button
+                    type="primary"
+                    shape="round"
+                    icon={<GithubOutlined />}
+                    href="https://github.com/TheSinghsDen/WheresMyJab.git"
+                >
                     Collaborate
                 </Button>
             </Row>
@@ -27,7 +32,7 @@ const FindSlots = (): JSX.Element => {
             </Row>
 
             <Row justify="center" align="middle" className="description">
-                <Text type="secondary"> Search for vaccination slots and get notified when available</Text>
+                <Text type="secondary"> Search for vaccination slots • Get notified when available</Text>
             </Row>
 
             <Row justify="center" align="middle" className="select">

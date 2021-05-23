@@ -8,6 +8,7 @@ import { sceneLogicType } from './sceneLogicType'
 
 export enum Scene {
     FindSlots = 'findslots',
+    ListAllSlots = 'listAllSlots',
 }
 
 interface LoadedScene {
@@ -21,6 +22,7 @@ interface Params {
 
 export const scenes: Record<Scene, () => any> = {
     [Scene.FindSlots]: () => import('./findSlots/FindSlots'),
+    [Scene.ListAllSlots]: () => import('./listAllSlots/ListAllSlots'),
 }
 
 export const redirects: Record<string, string | ((params: Params) => any)> = {
@@ -29,6 +31,7 @@ export const redirects: Record<string, string | ((params: Params) => any)> = {
 
 export const routes: Record<string, Scene> = {
     '/findSlots': Scene.FindSlots,
+    '/listAllSlots': Scene.ListAllSlots,
 }
 
 export const sceneLogic = kea<sceneLogicType>({
