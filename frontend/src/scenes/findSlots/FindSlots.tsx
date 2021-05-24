@@ -4,6 +4,7 @@ import { GithubOutlined } from '@ant-design/icons'
 import { findSlotsLogic } from './findSlotsLogic'
 import './index.scss'
 import { useActions, useValues } from 'kea'
+import { A } from 'kea-router'
 
 const { Title, Text } = Typography
 const { Option } = Select
@@ -101,14 +102,16 @@ const FindSlots = (): JSX.Element => {
             </Row>
 
             <Row justify="center" align="middle" className="radio">
-                <Button
-                    type="primary"
-                    shape="round"
-                    size="large"
-                    disabled={!selectedState || !selectedDistrict || !selectedAgeGroup}
-                >
-                    Search Slots
-                </Button>
+                <A href="/listAllSlots">
+                    <Button
+                        type="primary"
+                        shape="round"
+                        size="large"
+                        disabled={!selectedState || !selectedDistrict || !selectedAgeGroup}
+                    >
+                        Search Slots
+                    </Button>
+                </A>
             </Row>
         </div>
     )

@@ -4,6 +4,7 @@ import { BackTo } from '../../lib/components/BackTo'
 import { findSlotsLogic } from '../findSlots/findSlotsLogic'
 import { useActions, useValues } from 'kea'
 import { AgeFilter, DoseFilter, VaccineFilter } from '../../lib/components/SlotFilter/FIlters'
+import { listAllSlotsLogic } from './listAllSlotsLogic'
 
 import './index.scss'
 
@@ -12,7 +13,9 @@ const { Option } = Select
 
 const ListAllSlots = (): JSX.Element => {
     const { districts, selectedDistrict } = useValues(findSlotsLogic)
-    const { setSelectedDistrict } = useActions(findSlotsLogic)
+    const { setUniversalSelectedDistrict } = useActions(findSlotsLogic)
+    const { slots } = useValues(listAllSlotsLogic)
+    console.log(slots)
 
     return (
         <div>
@@ -29,7 +32,7 @@ const ListAllSlots = (): JSX.Element => {
                     placeholder="Select District"
                     optionFilterProp="title"
                     value={districts && selectedDistrict}
-                    onChange={(value) => setSelectedDistrict(value)}
+                    onChange={(v) => setUniversalSelectedDistrict(v)}
                 >
                     {districts &&
                         districts.map((district) => (
