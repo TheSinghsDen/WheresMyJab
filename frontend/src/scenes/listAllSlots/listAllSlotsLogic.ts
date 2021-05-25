@@ -13,7 +13,7 @@ export const listAllSlotsLogic = kea<listAllSlotsLogicType>({
     loaders: () => ({
         slots: {
             loadSlots: async () => {
-                console.log('Fetching Slots', findSlotsLogic.values.selectedDistrict)
+                console.log('Fetching Slots')
                 const response = await api.get(
                     `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict/` +
                         `?district_id=${findSlotsLogic.values.selectedDistrict}&&date=${today}`

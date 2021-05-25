@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { FunctionComponent } from 'react'
 import { toast } from 'react-toastify'
-import { Spin } from 'antd'
+import { Spin, Typography } from 'antd'
 import dayjs from 'dayjs'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
+
+const { Text } = Typography
 
 export function errorToast(title?: string, message?: string, errorDetail?: string, errorCode?: string): void {
     /**
@@ -90,4 +92,18 @@ export function humanFriendlyDate(date: string): string {
     const validatedDate = `${y}/${m}/${d}`
 
     return dayjs(validatedDate).format('MMMM DD, dddd')
+}
+
+type HumanFriendlySlotCapacityProps = {
+    slotCapacity: number
+}
+
+export const HumanFriendlySlotCapacity: FunctionComponent<HumanFriendlySlotCapacityProps> = ({ slotCapacity }) => {
+    if (slotCapacity == 0) {
+        return <Text type="secondary" style={{ fontWeight: 600 }}>{`No Slots`}</Text>
+    } else if (slotCapacity <= 10) {
+        return <Text type="warning" style={{ fontWeight: 600 }}>{`${slotCapacity} Slots`}</Text>
+    } else if (slotCapacity > 10) {
+        return <Text type="success" style={{ fontWeight: 600 }}>{`${slotCapacity} Slots`}</Text>
+    }
 }

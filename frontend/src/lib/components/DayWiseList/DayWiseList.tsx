@@ -1,9 +1,9 @@
 import React from 'react'
 import { useValues } from 'kea'
-import { Typography, List } from 'antd'
+import { List, Typography } from 'antd'
 import { RightOutlined } from '@ant-design/icons'
 import { dayWiseListLogic } from './dayWiseListLogic'
-import { humanFriendlyDate } from 'lib/utils'
+import { HumanFriendlySlotCapacity, humanFriendlyDate } from 'lib/utils'
 
 const { Text } = Typography
 
@@ -18,9 +18,11 @@ const DayWiseList: React.FC = () => {
                 itemLayout="horizontal"
                 renderItem={(item) => (
                     <List.Item actions={[<RightOutlined key="shit" />]} onClick={() => console.log('Clicked')}>
-                        <List.Item.Meta title={<Text>{humanFriendlyDate(item.date)}</Text>} />
+                        <List.Item.Meta
+                            title={<Text type={!item.slotCapacity && 'secondary'}>{humanFriendlyDate(item.date)}</Text>}
+                        />
                         <div>
-                            <Text>{item.slotCapacity}</Text>
+                            <HumanFriendlySlotCapacity slotCapacity={item.slotCapacity} />
                         </div>
                     </List.Item>
                 )}
