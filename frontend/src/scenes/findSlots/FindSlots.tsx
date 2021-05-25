@@ -96,8 +96,8 @@ const FindSlots = (): JSX.Element => {
                     onChange={(e) => setSelectedAgeGroup(e.target.value)}
                     style={{ display: selectedDistrict ? 'block' : 'none' }}
                 >
-                    <Radio value="18+">18+</Radio>
-                    <Radio value="45+">45+</Radio>
+                    <Radio value={18}>18+</Radio>
+                    <Radio value={45}>45+</Radio>
                 </Radio.Group>
             </Row>
 

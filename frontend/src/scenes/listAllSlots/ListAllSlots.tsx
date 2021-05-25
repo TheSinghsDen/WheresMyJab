@@ -1,10 +1,11 @@
 import React from 'react'
-import { Row, Col, Typography, Select } from 'antd'
+import { Row, Col, Typography, Select, Skeleton } from 'antd'
 import { BackTo } from '../../lib/components/BackTo'
 import { findSlotsLogic } from '../findSlots/findSlotsLogic'
 import { useActions, useValues } from 'kea'
 import { AgeFilter, DoseFilter, VaccineFilter } from '../../lib/components/SlotFilter/FIlters'
 import { listAllSlotsLogic } from './listAllSlotsLogic'
+import DayWiseList from 'lib/components/DayWiseList/DayWiseList'
 
 import './index.scss'
 
@@ -14,8 +15,13 @@ const { Option } = Select
 const ListAllSlots = (): JSX.Element => {
     const { districts, selectedDistrict } = useValues(findSlotsLogic)
     const { setUniversalSelectedDistrict } = useActions(findSlotsLogic)
-    const { slots } = useValues(listAllSlotsLogic)
-    console.log(slots)
+    const { slotsLoading } = useValues(listAllSlotsLogic)
+    const { loadSlots } = useActions(listAllSlotsLogic)
+
+    const changeDistrict = (value: number): void => {
+        setUniversalSelectedDistrict(value)
+        loadSlots()
+    }
 
     return (
         <div>
@@ -32,7 +38,7 @@ const ListAllSlots = (): JSX.Element => {
                     placeholder="Select District"
                     optionFilterProp="title"
                     value={districts && selectedDistrict}
-                    onChange={(v) => setUniversalSelectedDistrict(v)}
+                    onChange={changeDistrict}
                 >
                     {districts &&
                         districts.map((district) => (
@@ -61,6 +67,7 @@ const ListAllSlots = (): JSX.Element => {
                     <VaccineFilter />
                 </Col>
             </Row>
+            {slotsLoading ? <Skeleton active /> : <DayWiseList />}
         </div>
     )
 }
