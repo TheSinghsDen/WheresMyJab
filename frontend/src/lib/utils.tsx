@@ -1,6 +1,7 @@
 import React from 'react'
 import { toast } from 'react-toastify'
 import { Spin } from 'antd'
+import dayjs from 'dayjs'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 
 export function errorToast(title?: string, message?: string, errorDetail?: string, errorCode?: string): void {
@@ -80,4 +81,13 @@ export function SceneLoading(): JSX.Element {
             <Spin />
         </div>
     )
+}
+
+export function humanFriendlyDate(date: string): string {
+    const d = date.split('-')[0]
+    const m = date.split('-')[1]
+    const y = date.split('-')[2]
+    const validatedDate = `${y}/${m}/${d}`
+
+    return dayjs(validatedDate).format('MMMM DD, dddd')
 }
