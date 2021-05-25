@@ -19,24 +19,25 @@ export const dayWiseListLogic = kea<dayWiseListLogicType>({
                 const appliedAgeFilter = findSlotsLogic.values.selectedAgeGroup
                 const appliedDoseFilter = findSlotsLogic.values.dose
 
+                const createNewArray = (session): void => {
+                    const i = arr.findIndex((o) => o.date === session.date)
+                    if (i > -1) {
+                        arr[i].slotCapacity += session[appliedDoseFilter]
+                    } else {
+                        arr.push({
+                            date: session.date,
+                            slotCapacity: session[appliedDoseFilter],
+                        })
+                    }
+                }
+
                 slots.map((center) => {
                     center.sessions.map((session) => {
                         if (appliedAgeFilter == session.min_age_limit) {
                             if (appliedVaccineFilter.length && appliedVaccineFilter.includes(session.vaccine)) {
-                                const i = arr.findIndex((o) => o.date === session.date)
-                                if (i > -1) {
-                                    arr[i].slotCapacity += session[appliedDoseFilter]
-                                } else {
-                                    arr.push({
-                                        date: session.date,
-                                        slotCapacity: session[appliedDoseFilter],
-                                    })
-                                }
+                                createNewArray(session)
                             } else if (!appliedVaccineFilter.length) {
-                                arr.push({
-                                    date: session.date,
-                                    slotCapacity: session.available_capacity_dose1,
-                                })
+                                createNewArray(session)
                             }
                         }
                     })

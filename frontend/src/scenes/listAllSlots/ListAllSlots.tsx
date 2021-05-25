@@ -3,7 +3,7 @@ import { Row, Col, Typography, Select, Skeleton } from 'antd'
 import { BackTo } from '../../lib/components/BackTo'
 import { findSlotsLogic } from '../findSlots/findSlotsLogic'
 import { useActions, useValues } from 'kea'
-import { AgeFilter, DoseFilter, VaccineFilter } from '../../lib/components/SlotFilter/FIlters'
+import { AgeFilter, DoseFilter, VaccineFilter } from '../../lib/components/Filter/FIlters'
 import { listAllSlotsLogic } from './listAllSlotsLogic'
 import DayWiseList from 'lib/components/DayWiseList/DayWiseList'
 
