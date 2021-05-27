@@ -3,6 +3,7 @@ import { toast } from 'react-toastify'
 import { Spin, Typography } from 'antd'
 import dayjs from 'dayjs'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
+import { HumanFriendlySlotCapacityProps } from 'src/types'
 
 const { Text } = Typography
 
@@ -92,10 +93,6 @@ export function humanFriendlyDate(date: string): string {
     const validatedDate = `${y}/${m}/${d}`
 
     return dayjs(validatedDate).format('MMMM DD, dddd')
-}
-
-type HumanFriendlySlotCapacityProps = {
-    slotCapacity: number
 }
 
 export const HumanFriendlySlotCapacity: FunctionComponent<HumanFriendlySlotCapacityProps> = ({ slotCapacity }) => {
