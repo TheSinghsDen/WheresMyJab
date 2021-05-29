@@ -38,7 +38,7 @@ function createEntry(entry) {
         devtool: process.env.NODE_ENV === 'production' ? 'source-map' : 'inline-source-map',
         entry: './frontend/src/index.tsx',
         watchOptions: {
-            ignored: /node_modules/,
+            ignored: '**/node_modules',
         },
         output: {
             path: path.resolve(__dirname, 'frontend', 'dist'),
@@ -156,7 +156,7 @@ function createEntry(entry) {
             ? {
                   devServer: {
                       contentBase: path.join(__dirname, 'frontend', 'dist'),
-                      historyApiFallback: true,
+                      //historyApiFallback: true,
                       hot: true,
                       host: webpackDevServerHost,
                       port: 3000,

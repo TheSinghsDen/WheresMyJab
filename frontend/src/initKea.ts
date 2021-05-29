@@ -4,7 +4,7 @@ import { routerPlugin } from 'kea-router'
 import { loadersPlugin } from 'kea-loaders'
 import { windowValuesPlugin } from 'kea-window-values'
 import { errorToast, identifierToHuman } from 'lib/utils'
-
+import { default as history } from 'connect-history-api-fallback'
 /*
 Actions for which we don't want to show error alerts,
 mostly to avoid user confusion.
@@ -48,5 +48,8 @@ export function initKea(): void {
                 },
             }),
         ],
+        createStore: {
+            middleware: [() => history()],
+        },
     })
 }

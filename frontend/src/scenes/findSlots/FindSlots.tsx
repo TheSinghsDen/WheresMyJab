@@ -47,7 +47,6 @@ const FindSlots = (): JSX.Element => {
                     onChange={(value) => setSelectedState(value)}
                     disabled={statesLoading}
                     loading={statesLoading}
-                    getPopupContainer={(trigger) => trigger.parentNode}
                 >
                     {states &&
                         states.map((state) => (
@@ -70,7 +69,6 @@ const FindSlots = (): JSX.Element => {
                         optionFilterProp="title"
                         value={districts && selectedDistrict}
                         onChange={(value) => setSelectedDistrict(value)}
-                        getPopupContainer={(trigger) => trigger.parentNode}
                     >
                         {districts &&
                             districts.map((district) => (
