@@ -39,6 +39,7 @@ const ListAllSlots = (): JSX.Element => {
                     optionFilterProp="title"
                     value={districts && selectedDistrict}
                     onChange={changeDistrict}
+                    getPopupContainer={(trigger) => trigger.parentNode}
                 >
                     {districts &&
                         districts.map((district) => (
