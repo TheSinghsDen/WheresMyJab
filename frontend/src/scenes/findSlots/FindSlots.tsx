@@ -66,6 +66,14 @@ const FindSlots = (): JSX.Element => {
                     disabled={statesLoading}
                     loading={statesLoading}
                     ref={stateRef}
+                    dropdownAlign={{
+                        points: ['tl', 'bl'], // align dropdown top-left to bottom-left  of input element
+                        offset: [0, 2], // align offset
+                        overflow: {
+                            adjustX: 0,
+                            adjustY: 0, // do not auto flip in y-axis
+                        },
+                    }}
                 >
                     {states &&
                         states.map((state) => (

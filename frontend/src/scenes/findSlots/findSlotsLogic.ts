@@ -83,6 +83,14 @@ export const findSlotsLogic = kea<findSlotsLogicType>({
             },
         },
     }),
+    selectors: {
+        selectedDistrictName: [
+            (selectors) => [selectors.districts, selectors.selectedDistrict],
+            (districts, selectedDistrict) => {
+                return districts.find((elem) => elem.district_id === selectedDistrict).district_name
+            },
+        ],
+    },
 
     // actionToUrl: ({ values }) => ({
     //     setSelectedState: () => ['/findSlots', { state_id: values.selectedState }],
