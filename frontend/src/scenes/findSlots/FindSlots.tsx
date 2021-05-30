@@ -16,12 +16,20 @@ const FindSlots = (): JSX.Element => {
     const { setSelectedState, setSelectedDistrict, setSelectedAgeGroup } = useActions(findSlotsLogic)
 
     // This will hold reference to `<Select>`
-    const selectRef = useRef(null)
+    const stateRef = useRef(null)
+    const districtRef = useRef(null)
 
     const handleStateChange = (v): void => {
         setSelectedState(v)
         setTimeout(() => {
-            selectRef.current.blur()
+            stateRef.current.blur()
+        }, 20)
+    }
+
+    const handleDistrictChange = (v): void => {
+        setSelectedDistrict(v)
+        setTimeout(() => {
+            districtRef.current.blur()
         }, 20)
     }
 
@@ -46,7 +54,7 @@ const FindSlots = (): JSX.Element => {
                 <Text type="secondary"> Search for vaccination slots • Get notified when available</Text>
             </Row>
 
-            <Row justify="center" align="middle" className="select">
+            <Row justify="center" align="middle" className="pa">
                 <Select
                     showSearch
                     style={{ width: '100%' }}
@@ -57,7 +65,7 @@ const FindSlots = (): JSX.Element => {
                     onChange={handleStateChange}
                     disabled={statesLoading}
                     loading={statesLoading}
-                    ref={selectRef}
+                    ref={stateRef}
                 >
                     {states &&
                         states.map((state) => (
@@ -68,7 +76,7 @@ const FindSlots = (): JSX.Element => {
                 </Select>
             </Row>
 
-            <Row justify="center" align="middle" className="select">
+            <Row justify="center" align="middle" className="pa">
                 {districtsLoading ? (
                     <Skeleton active />
                 ) : (
@@ -79,7 +87,8 @@ const FindSlots = (): JSX.Element => {
                         placeholder="Select District"
                         optionFilterProp="title"
                         value={districts && selectedDistrict}
-                        onChange={(value) => setSelectedDistrict(value)}
+                        onChange={handleDistrictChange}
+                        ref={districtRef}
                     >
                         {districts &&
                             districts.map((district) => (

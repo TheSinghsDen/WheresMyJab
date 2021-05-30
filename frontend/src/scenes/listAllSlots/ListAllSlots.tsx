@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Row, Col, Typography, Select, Skeleton } from 'antd'
-import { BackTo } from '../../lib/components/BackTo'
+import { BackTo } from 'lib/components/BackTo'
 import { findSlotsLogic } from '../findSlots/findSlotsLogic'
 import { useActions, useValues } from 'kea'
-import { AgeFilter, DoseFilter, VaccineFilter } from '../../lib/components/Filter/FIlters'
+import { AgeFilter, DoseFilter, VaccineFilter } from 'lib/components/Filter/FIlters'
 import { listAllSlotsLogic } from './listAllSlotsLogic'
 import DayWiseList from 'lib/components/DayWiseList/DayWiseList'
 
@@ -18,8 +18,13 @@ const ListAllSlots = (): JSX.Element => {
     const { slotsLoading } = useValues(listAllSlotsLogic)
     const { loadSlots } = useActions(listAllSlotsLogic)
 
+    const districtRef = useRef(null)
+
     const changeDistrict = (value: number): void => {
         setUniversalSelectedDistrict(value)
+        setTimeout(() => {
+            districtRef.current.blur()
+        }, 20)
         loadSlots()
     }
 
@@ -39,6 +44,7 @@ const ListAllSlots = (): JSX.Element => {
                     optionFilterProp="title"
                     value={districts && selectedDistrict}
                     onChange={changeDistrict}
+                    ref={districtRef}
                 >
                     {districts &&
                         districts.map((district) => (
