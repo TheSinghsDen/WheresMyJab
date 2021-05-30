@@ -45,6 +45,14 @@ const ListAllSlots = (): JSX.Element => {
                     value={districts && selectedDistrict}
                     onChange={changeDistrict}
                     ref={districtRef}
+                    dropdownAlign={{
+                        points: ['tl', 'bl'], // align dropdown top-left to bottom-left  of input element
+                        offset: [0, 2], // align offset
+                        overflow: {
+                            adjustX: 0,
+                            adjustY: 0, // do not auto flip in y-axis
+                        },
+                    }}
                 >
                     {districts &&
                         districts.map((district) => (
