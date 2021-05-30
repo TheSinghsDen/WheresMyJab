@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Row, Typography, Select, Radio, Button, Skeleton } from 'antd'
 import { GithubOutlined } from '@ant-design/icons'
 import { findSlotsLogic } from './findSlotsLogic'
@@ -14,6 +14,16 @@ const FindSlots = (): JSX.Element => {
         useValues(findSlotsLogic)
 
     const { setSelectedState, setSelectedDistrict, setSelectedAgeGroup } = useActions(findSlotsLogic)
+
+    // This will hold reference to `<Select>`
+    const selectRef = useRef(null)
+
+    const handleStateChange = (v): void => {
+        setSelectedState(v)
+        setTimeout(() => {
+            selectRef.current.blur()
+        }, 20)
+    }
 
     return (
         <div>
@@ -44,9 +54,10 @@ const FindSlots = (): JSX.Element => {
                     placeholder="Select State"
                     optionFilterProp="title"
                     value={states && selectedState}
-                    onChange={(value) => setSelectedState(value)}
+                    onChange={handleStateChange}
                     disabled={statesLoading}
                     loading={statesLoading}
+                    ref={selectRef}
                 >
                     {states &&
                         states.map((state) => (
