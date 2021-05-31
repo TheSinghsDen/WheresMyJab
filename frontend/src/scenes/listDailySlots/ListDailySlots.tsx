@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Row, Col, Typography, Input, DatePicker, Skeleton } from 'antd'
-import { SearchOutlined, CalendarOutlined } from '@ant-design/icons'
+import { SearchOutlined, CalendarOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons'
 import { BackTo } from 'lib/components/BackTo'
 import CentersSessionCard from 'lib/components/CentersSessionCard/CentersSessionCard'
 import { findSlotsLogic } from '../findSlots/findSlotsLogic'
@@ -16,8 +16,9 @@ const ListDailySlots: React.FC = () => {
     const { selectedDistrictName } = useValues(findSlotsLogic)
     const { date, filteredSessions, centersLoading } = useValues(listDailySlotsLogic)
     const { setDate, loadCenters } = useActions(listDailySlotsLogic)
+    const [search, setToSearch] = useState('')
 
-    const handlePicker = (d, ds): void => {
+    const handlePicker = (ds): void => {
         setDate(ds)
         loadCenters()
     }
@@ -47,13 +48,23 @@ const ListDailySlots: React.FC = () => {
                             return current < moment().subtract(1, 'day') || current > moment().add(1, 'month')
                         }}
                         value={moment(validDate(date))}
-                        onChange={handlePicker}
+                        onChange={(d, ds) => handlePicker(ds)}
                     />
                 </Col>
             </Row>
 
-            <Row justify="center" align="middle" className="pt pl pr">
-                <Title level={4}>{humanFriendlyDate(date)}</Title>
+            <Row justify="space-between" align="middle" className="pt pl pr mb">
+                <LeftOutlined
+                    style={{ fontSize: '20px' }}
+                    onClick={() => handlePicker(moment(validDate(date)).subtract(1, 'day').format('DD-MM-YYYY'))}
+                />
+                <Title level={4} style={{ marginBottom: '0' }}>
+                    {humanFriendlyDate(date)}
+                </Title>
+                <RightOutlined
+                    style={{ fontSize: '20px' }}
+                    onClick={() => handlePicker(moment(validDate(date)).add(1, 'day').format('DD-MM-YYYY'))}
+                />
             </Row>
 
             <Row justify="start" align="middle" className="pl">
@@ -73,16 +84,34 @@ const ListDailySlots: React.FC = () => {
             </Row>
 
             <Row justify="center" align="middle" className="pa">
-                <Input placeholder="Search by Hospital or Pincode" size="large" suffix={<SearchOutlined />} />
+                <Input
+                    placeholder="Search by Hospital or Pincode"
+                    size="large"
+                    suffix={<SearchOutlined />}
+                    value={search}
+                    onChange={(e) => setToSearch(e.target.value)}
+                />
             </Row>
             {centersLoading ? (
                 <Skeleton active />
             ) : (
                 <div className="pa mt2">
                     {filteredSessions && filteredSessions.length ? (
-                        filteredSessions.map((center) => {
-                            return <CentersSessionCard key={center.center_id} details={center} />
-                        })
+                        search.length ? (
+                            filteredSessions
+                                .filter(
+                                    (item) =>
+                                        item.name.toLowerCase().includes(search.toLowerCase()) ||
+                                        item.pincode.toString().includes(search)
+                                )
+                                .map((center) => {
+                                    return <CentersSessionCard key={center.center_id} details={center} />
+                                })
+                        ) : (
+                            filteredSessions.map((center) => {
+                                return <CentersSessionCard key={center.center_id} details={center} />
+                            })
+                        )
                     ) : (
                         <Row justify="center" align="middle">
                             <Title level={5}>No Slots available in this area</Title>
