@@ -95,6 +95,15 @@ export function humanFriendlyDate(date: string): string {
     return dayjs(validatedDate).format('MMMM DD, dddd')
 }
 
+export function validDate(date: string): string {
+    const d = date.split('-')[0]
+    const m = date.split('-')[1]
+    const y = date.split('-')[2]
+    const validatedDate = `${y}/${m}/${d}`
+
+    return validatedDate
+}
+
 export const HumanFriendlySlotCapacity: FunctionComponent<HumanFriendlySlotCapacityProps> = ({ slotCapacity }) => {
     if (slotCapacity == 0) {
         return <Text type="secondary" style={{ fontWeight: 600 }}>{`No Slots`}</Text>

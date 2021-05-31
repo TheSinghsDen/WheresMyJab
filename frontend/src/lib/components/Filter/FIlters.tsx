@@ -4,7 +4,6 @@ import FilterButton from './FilterButton'
 import { Radio, Checkbox, Space } from 'antd'
 import { findSlotsLogic } from '../../../scenes/findSlots/findSlotsLogic'
 import { filterButtonLogic } from './filterButtonLogic'
-import { listAllSlotsLogic } from 'scenes/listAllSlots/listAllSlotsLogic'
 
 import './index.scss'
 
@@ -13,12 +12,10 @@ export const DoseFilter: React.FC = () => {
     const { dose } = useValues(findSlotsLogic)
     const { setSelectedDose } = useActions(findSlotsLogic)
     const { setVisibility } = useActions(filterButtonLogic({ id }))
-    const { loadSlots } = useActions(listAllSlotsLogic)
 
     const handleChange = (e: any): void => {
         setSelectedDose(e.target.value)
         setVisibility(false)
-        loadSlots()
     }
     const doseFilterContnet = (
         <Radio.Group onChange={handleChange} value={dose}>
@@ -47,12 +44,10 @@ export const AgeFilter: React.FC = () => {
     const { selectedAgeGroup } = useValues(findSlotsLogic)
     const { setUniversalSelectedAgeGroup } = useActions(findSlotsLogic)
     const { setVisibility } = useActions(filterButtonLogic({ id }))
-    const { loadSlots } = useActions(listAllSlotsLogic)
 
     const handleChange = (e: any): void => {
         setUniversalSelectedAgeGroup(e.target.value)
         setVisibility(false)
-        loadSlots()
     }
 
     const ageFilterContent = (
@@ -83,12 +78,10 @@ export const VaccineFilter: React.FC = () => {
     const { COVAXIN, COVISHIELD } = vaccine
     const { setSelectedVaccine } = useActions(findSlotsLogic)
     const { setVisibility } = useActions(filterButtonLogic({ id }))
-    const { loadSlots } = useActions(listAllSlotsLogic)
 
     const handleChange = (e: any): void => {
         setSelectedVaccine({ ...vaccine, [e.target.value]: e.target.checked })
         setVisibility(false)
-        loadSlots()
     }
 
     const vaccineFilterContent = (

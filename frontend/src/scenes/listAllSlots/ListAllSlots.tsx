@@ -70,7 +70,7 @@ const ListAllSlots = (): JSX.Element => {
                 <Title level={5}>Filters</Title>
             </Row>
 
-            <Row justify="start" align="middle" className="pl">
+            <Row justify="start" align="middle" className="pl" gutter={[0, 10]}>
                 <Col>
                     <DoseFilter />
                 </Col>

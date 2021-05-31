@@ -1,6 +1,6 @@
 import { kea } from 'kea'
 import api from 'lib/api'
-import { findSlotsLogic } from '../findSlots/findSlotsLogic'
+import { findSlotsLogic } from 'scenes/findSlots/findSlotsLogic'
 import { listAllSlotsLogicType } from './listAllSlotsLogicType'
 
 let today: any = new Date()
@@ -10,6 +10,9 @@ const yyyy = today.getFullYear()
 today = dd + '-' + mm + '-' + yyyy
 
 export const listAllSlotsLogic = kea<listAllSlotsLogicType>({
+    connect: {
+        actions: [findSlotsLogic, ['setUniversalSelectedAgeGroup', 'setSelectedDose', 'setSelectedVaccine']],
+    },
     loaders: () => ({
         slots: {
             loadSlots: async () => {
@@ -21,6 +24,11 @@ export const listAllSlotsLogic = kea<listAllSlotsLogicType>({
                 return response.centers
             },
         },
+    }),
+    listeners: ({ actions }) => ({
+        setUniversalSelectedAgeGroup: actions.loadSlots,
+        setSelectedDose: actions.loadSlots,
+        setSelectedVaccine: actions.loadSlots,
     }),
     events: ({ actions }) => ({
         afterMount: [actions.loadSlots],

@@ -217,6 +217,14 @@ code.code {
     padding-left: $default_spacing;
 }
 
+.pr-2 {
+    padding-right: $default_spacing * 2;
+}
+
+.pl-2 {
+    padding-left: $default_spacing * 2;
+}
+
 .full-width {
     width: 100%;
 }
