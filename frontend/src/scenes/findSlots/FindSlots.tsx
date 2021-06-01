@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { Row, Typography, Select, Radio, Button, Skeleton } from 'antd'
 import { HeartOutlined } from '@ant-design/icons'
 import { findSlotsLogic } from './findSlotsLogic'
@@ -9,7 +9,7 @@ import { A } from 'kea-router'
 const { Title, Text } = Typography
 const { Option } = Select
 
-const FindSlots = (): JSX.Element => {
+const FindSlots: React.FC = () => {
     const { states, selectedState, statesLoading, districts, districtsLoading, selectedDistrict, selectedAgeGroup } =
         useValues(findSlotsLogic)
 
@@ -18,6 +18,8 @@ const FindSlots = (): JSX.Element => {
     // This will hold reference to `<Select>`
     const stateRef = useRef(null)
     const districtRef = useRef(null)
+
+    const [hidden, setHidden] = useState(false)
 
     const handleStateChange = (v): void => {
         setSelectedState(v)
@@ -55,6 +57,8 @@ const FindSlots = (): JSX.Element => {
                     disabled={statesLoading}
                     loading={statesLoading}
                     ref={stateRef}
+                    onFocus={() => setHidden(true)}
+                    onBlur={() => setHidden(false)}
                     dropdownAlign={{
                         points: ['tl', 'bl'], // align dropdown top-left to bottom-left  of input element
                         offset: [0, 2], // align offset
@@ -86,6 +90,8 @@ const FindSlots = (): JSX.Element => {
                         value={districts && selectedDistrict}
                         onChange={handleDistrictChange}
                         ref={districtRef}
+                        onFocus={() => setHidden(true)}
+                        onBlur={() => setHidden(false)}
                         dropdownAlign={{
                             points: ['tl', 'bl'], // align dropdown top-left to bottom-left  of input element
                             offset: [0, 2], // align offset
@@ -139,7 +145,7 @@ const FindSlots = (): JSX.Element => {
                 </A>
             </Row>
 
-            <Row justify="center" align="middle" className="footer">
+            <Row justify="center" align="middle" className="footer" style={{ display: hidden ? 'none' : 'flex' }}>
                 <HeartOutlined className="heart" />
                 <Text type="secondary"> Inspired by - www.vaccinateme.in </Text>
                 <HeartOutlined className="heart" />
