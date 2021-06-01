@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { Row, Typography, Select, Radio, Button, Skeleton } from 'antd'
-import { GithubOutlined } from '@ant-design/icons'
+import { HeartOutlined } from '@ant-design/icons'
 import { findSlotsLogic } from './findSlotsLogic'
 import './index.scss'
 import { useActions, useValues } from 'kea'
@@ -35,23 +35,12 @@ const FindSlots = (): JSX.Element => {
 
     return (
         <div>
-            <Row justify="end" align="middle" className="contribute">
-                <Button
-                    type="primary"
-                    shape="round"
-                    icon={<GithubOutlined />}
-                    href="https://github.com/TheSinghsDen/WheresMyJab.git"
-                >
-                    Collaborate
-                </Button>
-            </Row>
-
             <Row justify="center" align="middle" className="title">
                 <Title level={2}>WheresMyJab</Title>
             </Row>
 
             <Row justify="center" align="middle" className="description">
-                <Text type="secondary"> Search for vaccination slots • Get notified when available</Text>
+                <Text type="secondary"> Search for vaccination slots • Get real-time data from CoWIN</Text>
             </Row>
 
             <Row justify="center" align="middle" className="pa">
@@ -148,6 +137,12 @@ const FindSlots = (): JSX.Element => {
                         Search Slots
                     </Button>
                 </A>
+            </Row>
+
+            <Row justify="center" align="middle" className="footer">
+                <HeartOutlined className="heart" />
+                <Text type="secondary"> Inspired by - www.vaccinateme.in </Text>
+                <HeartOutlined className="heart" />
             </Row>
         </div>
     )
