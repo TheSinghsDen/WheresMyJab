@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { getContext } from 'kea'
 
-import App from './scenes/App'
+import ResponsiveApp from './scenes/ResponsiveApp'
 import { initKea } from './initKea'
 
 import { GlobalStyles } from './GlobalStyles'
@@ -13,7 +13,7 @@ initKea()
 ReactDOM.render(
     <Provider store={getContext().store}>
         <GlobalStyles />
-        <App />
+        <ResponsiveApp />
     </Provider>,
     document.getElementById('root')
 )
