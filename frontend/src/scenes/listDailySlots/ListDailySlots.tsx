@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import { Row, Col, Typography, Input, DatePicker, Skeleton } from 'antd'
-import { SearchOutlined, CalendarOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons'
+import { SearchOutlined, CalendarOutlined } from '@ant-design/icons'
+import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft'
+import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'
+import IconButton from '@material-ui/core/IconButton'
 import { BackTo } from 'lib/components/BackTo'
 import CentersSessionCard from 'lib/components/CentersSessionCard/CentersSessionCard'
 import { findSlotsLogic } from '../findSlots/findSlotsLogic'
@@ -54,17 +57,23 @@ const ListDailySlots: React.FC = () => {
             </Row>
 
             <Row justify="space-between" align="middle" className="pt pl pr mb">
-                <LeftOutlined
-                    style={{ fontSize: '20px' }}
+                <IconButton
+                    disabled={moment().format('DD-MM-YYYY') == date}
                     onClick={() => handlePicker(moment(validDate(date)).subtract(1, 'day').format('DD-MM-YYYY'))}
-                />
-                <Title level={4} style={{ marginBottom: '0' }}>
+                >
+                    <KeyboardArrowLeftIcon fontSize="large" />
+                </IconButton>
+
+                <Title level={4} style={{ marginBottom: '0', fontWeight: '450' }}>
                     {humanFriendlyDate(date)}
                 </Title>
-                <RightOutlined
-                    style={{ fontSize: '20px' }}
+
+                <IconButton
+                    disabled={moment().add(1, 'month').format('DD-MM-YYYY') == date}
                     onClick={() => handlePicker(moment(validDate(date)).add(1, 'day').format('DD-MM-YYYY'))}
-                />
+                >
+                    <KeyboardArrowRightIcon fontSize="large" />
+                </IconButton>
             </Row>
 
             <Row justify="start" align="middle" className="pl">
@@ -108,8 +117,8 @@ const ListDailySlots: React.FC = () => {
                                     return <CentersSessionCard key={center.center_id} details={center} />
                                 })
                         ) : (
-                            filteredSessions.map((center) => {
-                                return <CentersSessionCard key={center.center_id} details={center} />
+                            filteredSessions.map((center, index) => {
+                                return <CentersSessionCard key={index} details={center} />
                             })
                         )
                     ) : (

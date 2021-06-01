@@ -56,7 +56,7 @@ const CentersSessionCard: React.FC<CardProps> = ({ details }) => {
                             backgroundColor:
                                 details[appliedDoseFilter] == 0
                                     ? 'rgb(157, 157, 157)'
-                                    : details > 10
+                                    : details[appliedDoseFilter] > 10
                                     ? '#77b96c'
                                     : '#f7a501',
                             color: 'white',
