@@ -58,7 +58,7 @@ const FindSlots: React.FC = () => {
                     loading={statesLoading}
                     ref={stateRef}
                     onFocus={() => setHidden(true)}
-                    onBlur={() => setHidden(false)}
+                    onBlur={() => setTimeout(() => setHidden(false), 400)}
                     dropdownAlign={{
                         points: ['tl', 'bl'], // align dropdown top-left to bottom-left  of input element
                         offset: [0, 2], // align offset
@@ -91,7 +91,7 @@ const FindSlots: React.FC = () => {
                         onChange={handleDistrictChange}
                         ref={districtRef}
                         onFocus={() => setHidden(true)}
-                        onBlur={() => setHidden(false)}
+                        onBlur={() => setTimeout(() => setHidden(false), 400)}
                         dropdownAlign={{
                             points: ['tl', 'bl'], // align dropdown top-left to bottom-left  of input element
                             offset: [0, 2], // align offset

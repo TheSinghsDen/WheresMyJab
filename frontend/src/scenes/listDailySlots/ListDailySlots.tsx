@@ -56,7 +56,7 @@ const ListDailySlots: React.FC = () => {
                 </Col>
             </Row>
 
-            <Row justify="space-between" align="middle" className="pt pl pr mb">
+            <Row justify="space-between" align="middle" className="pt mb">
                 <IconButton
                     disabled={moment().format('DD-MM-YYYY') == date}
                     onClick={() => handlePicker(moment(validDate(date)).subtract(1, 'day').format('DD-MM-YYYY'))}

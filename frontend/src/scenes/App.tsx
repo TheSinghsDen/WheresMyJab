@@ -7,7 +7,7 @@ import { SceneLoading } from '../lib/utils'
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        [theme.breakpoints.down('xs')]: {
+        [theme.breakpoints.down('sm')]: {
             height: '100%',
             width: '100%',
         },
