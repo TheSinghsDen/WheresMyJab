@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Row, Col, Typography, Input, DatePicker, Skeleton } from 'antd'
 import { SearchOutlined, CalendarOutlined } from '@ant-design/icons'
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft'
@@ -25,6 +25,10 @@ const ListDailySlots: React.FC = () => {
         setDate(ds)
         loadCenters()
     }
+
+    useEffect(() => {
+        loadCenters()
+    }, [])
 
     return (
         <div>

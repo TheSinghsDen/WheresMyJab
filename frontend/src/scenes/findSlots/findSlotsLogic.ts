@@ -91,41 +91,4 @@ export const findSlotsLogic = kea<findSlotsLogicType>({
             },
         ],
     },
-
-    // actionToUrl: ({ values }) => ({
-    //     setSelectedState: () => ['/findSlots', { state_id: values.selectedState }],
-    //     setSelectedDistrict: () => [
-    //         '/findSlots',
-    //         { state_id: values.selectedState, district_id: values.selectedDistrict },
-    //     ],
-    //     setSelectedAgeGroup: () => [
-    //         '/findSlots',
-    //         {
-    //             state_id: values.selectedState,
-    //             district_id: values.selectedDistrict,
-    //             age_group: values.selectedAgeGroup,
-    //         },
-    //     ],
-    // }),
-
-    // urlToAction: ({ actions, values }) => ({
-    //     '/findSlots': (
-    //         {},
-    //         searchParams: Record<'state_id' | 'district_id' | 'age_group', string | string | number>
-    //     ) => {
-    //         if (searchParams.state_id && searchParams.state_id !== values.selectedState) {
-    //             actions.setSelectedState(searchParams.state_id)
-    //         }
-    //         if (searchParams.district_id && searchParams.district_id !== values.selectedDistrict) {
-    //             actions.setSelectedDistrict(searchParams.district_id)
-    //         }
-    //         if (searchParams.age_group && searchParams.age_group !== values.selectedAgeGroup) {
-    //             actions.setSelectedAgeGroup(searchParams.age_group)
-    //         }
-    //     },
-    // }),
-
-    events: ({ actions }) => ({
-        afterMount: [actions.loadStates],
-    }),
 })

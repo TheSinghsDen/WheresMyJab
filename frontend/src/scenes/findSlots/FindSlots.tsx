@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { Row, Typography, Select, Radio, Button, Skeleton } from 'antd'
 import { HeartOutlined } from '@ant-design/icons'
 import { findSlotsLogic } from './findSlotsLogic'
@@ -13,7 +13,7 @@ const FindSlots: React.FC = () => {
     const { states, selectedState, statesLoading, districts, districtsLoading, selectedDistrict, selectedAgeGroup } =
         useValues(findSlotsLogic)
 
-    const { setSelectedState, setSelectedDistrict, setSelectedAgeGroup } = useActions(findSlotsLogic)
+    const { setSelectedState, setSelectedDistrict, setSelectedAgeGroup, loadStates } = useActions(findSlotsLogic)
 
     // This will hold reference to `<Select>`
     const stateRef = useRef(null)
@@ -34,6 +34,10 @@ const FindSlots: React.FC = () => {
             districtRef.current.blur()
         }, 20)
     }
+
+    useEffect(() => {
+        !states && loadStates()
+    }, [])
 
     return (
         <div>

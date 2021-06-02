@@ -60,11 +60,14 @@ export const listDailySlotsLogic = kea<listDailySlotsLogicType>({
         ],
     },
     listeners: ({ actions }) => ({
-        setUniversalSelectedAgeGroup: actions.loadCenters,
-        setSelectedDose: actions.loadCenters,
-        setSelectedVaccine: actions.loadCenters,
-    }),
-    events: ({ actions }) => ({
-        afterMount: [actions.loadCenters],
+        setUniversalSelectedAgeGroup: () => {
+            window.location.pathname == '/listDailySlots' && actions.loadCenters()
+        },
+        setSelectedDose: () => {
+            window.location.pathname == '/listDailySlots' && actions.loadCenters()
+        },
+        setSelectedVaccine: () => {
+            window.location.pathname == '/listDailySlots' && actions.loadCenters()
+        },
     }),
 })
