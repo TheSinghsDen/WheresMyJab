@@ -1,0 +1,38 @@
+.alert {
+    font-size: 0.875rem;
+    font-weight: 600;
+    border: 1px solid rgb(21, 101, 192);
+    background-color: rgba(21, 101, 192, 0.1);
+    border-radius: 8px;
+}
+
+.bell {
+    fill: rgb(21, 101, 192);
+}
+
+.rightIcon {
+    margin-top: 50%;
+}
+
+.dialog {
+    padding: 16px;
+    text-align: center;
+}
+
+.dialog_title {
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.dialog_description {
+    font-size: 0.875rem;
+}
+
+.actions {
+    text-align: center;
+}
+
+.turn_on_button {
+    font-weight: 800;
+    color: #40a9ff;
+}
