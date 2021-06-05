@@ -64,37 +64,5 @@
         <script src="/__/firebase/8.6.3/firebase-app.js"></script>
         <script src="/__/firebase/8.6.3/firebase-messaging.js"></script>
         <script src="/__/firebase/init.js?useEmulator=true"></script>
-
-        <script>
-            const messaging = firebase.messaging()
-            messaging.onMessage((payload) => {
-                console.log('Message received. ', payload)
-                // Update the UI to include the received message.
-                appendMessage(payload)
-            })
-
-            function resetUI() {
-                messaging
-                    .getToken({
-                        vapidKey:
-                            'BCCy_QI4pW6YNdntCWrikXO5Eq4Eo0IAT1EEPp9a9-MmCHd3Ick88-GP3ndOLJt33KyJtbDmP7v6CTE47Vn8IAQ',
-                    })
-                    .then((currentToken) => {
-                        if (currentToken) {
-                            console.log(currentToken)
-                        } else {
-                            // Show permission request.
-                            console.log('No registration token available. Request permission to generate one.')
-                            // Show permission UI.
-                        }
-                    })
-                    .catch((err) => {
-                        console.log('An error occurred while retrieving token. ', err)
-                    })
-            }
-
-            resetUI()
-            console.log('Shit')
-        </script>
     </body>
 </html>

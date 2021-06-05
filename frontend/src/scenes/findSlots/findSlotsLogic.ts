@@ -90,5 +90,13 @@ export const findSlotsLogic = kea<findSlotsLogicType>({
                 return districts.find((elem) => elem.district_id === selectedDistrict).district_name
             },
         ],
+        appliedVaccineFilter: [
+            (selectors) => [selectors.vaccine],
+            (vaccine) => {
+                return Object.keys(vaccine).filter((k) => {
+                    return vaccine[k]
+                })
+            },
+        ],
     },
 })

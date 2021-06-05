@@ -19,11 +19,10 @@ const DayWiseList: React.FC = () => {
         setDate(date)
         push('/listDailySlots')
     }
-    console.log(availableSlots)
 
     return (
         <div className="pa mt2">
-            <Notification />
+            {!availableSlots && <Notification />}
             <List
                 dataSource={slotsForAllDays}
                 footer
