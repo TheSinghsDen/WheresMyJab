@@ -1,13 +1,23 @@
-.alert {
+.alert_subscribe {
     font-size: 0.875rem;
     font-weight: 600;
     border: 1px solid rgb(21, 101, 192);
-    background-color: rgba(21, 101, 192, 0.1);
     border-radius: 8px;
 }
 
-.bell {
+.alert_unsubscribe {
+    font-size: 0.875rem;
+    font-weight: 600;
+    border: 1px solid #faad14;
+    border-radius: 8px;
+}
+
+.bell_subscribe {
     fill: rgb(21, 101, 192);
+}
+
+.bell_unsubsctibe {
+    fill: #faad14;
 }
 
 .rightIcon {
@@ -26,4 +36,9 @@
 .turn_on_button {
     font-weight: 800;
     color: #40a9ff;
+}
+
+.turn_off_button {
+    font-weight: 800;
+    color: #e91e63;
 }

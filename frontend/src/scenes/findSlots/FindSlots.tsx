@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { Row, Typography, Select, Radio, Button, Skeleton } from 'antd'
-import { HeartOutlined } from '@ant-design/icons'
+import { GithubOutlined } from '@ant-design/icons'
 import { findSlotsLogic } from './findSlotsLogic'
 import './index.scss'
 import { useActions, useValues } from 'kea'
@@ -41,7 +41,7 @@ const FindSlots: React.FC = () => {
 
     return (
         <div>
-            <Row justify="center" align="middle" className="title">
+            <Row justify="center" align="middle" className="title_box">
                 <Title level={2}>WheresMyJab</Title>
             </Row>
 
@@ -150,9 +150,8 @@ const FindSlots: React.FC = () => {
             </Row>
 
             <Row justify="center" align="middle" className="footer" style={{ display: hidden ? 'none' : 'flex' }}>
-                <HeartOutlined className="heart" />
-                <Text type="secondary"> Inspired by - www.vaccinateme.in </Text>
-                <HeartOutlined className="heart" />
+                <GithubOutlined className="github" />
+                <Text type="secondary"> Source on Github </Text>
             </Row>
         </div>
     )
