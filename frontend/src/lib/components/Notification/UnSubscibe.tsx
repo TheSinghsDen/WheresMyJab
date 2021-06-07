@@ -25,7 +25,7 @@ const Unsubscribe: React.FC = () => {
         // Delete registration token.
         messaging
             .getToken()
-            .then((currentToken) => {
+            .then((currentToken: string) => {
                 messaging
                     .deleteToken(currentToken)
                     .then(() => {

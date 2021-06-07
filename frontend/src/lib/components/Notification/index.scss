@@ -42,3 +42,9 @@
     font-weight: 800;
     color: #e91e63;
 }
+
+.hedgehog {
+    width: 80px;
+    filter: invert(42%) sepia(29%) saturate(7086%) hue-rotate(326deg) brightness(101%) contrast(99%);
+    opacity: 0.7;
+}

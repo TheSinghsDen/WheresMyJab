@@ -21,7 +21,7 @@ const Notifications: React.FC = () => {
                 .getToken({
                     vapidKey: 'BCCy_QI4pW6YNdntCWrikXO5Eq4Eo0IAT1EEPp9a9-MmCHd3Ick88-GP3ndOLJt33KyJtbDmP7v6CTE47Vn8IAQ',
                 })
-                .then((currentToken) => {
+                .then((currentToken: string) => {
                     if (currentToken) {
                         sendTokenToServer(currentToken)
                         console.log(currentToken)
@@ -37,7 +37,7 @@ const Notifications: React.FC = () => {
         }
     }
 
-    const sendTokenToServer = (currentToken): void => {
+    const sendTokenToServer = (currentToken: string): void => {
         if (!isTokenSentToServer) {
             console.log('Sending token to server...', currentToken)
             // TODO(developer): Send the current token to your server.
