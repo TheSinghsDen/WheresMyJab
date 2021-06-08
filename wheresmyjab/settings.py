@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'wheresmyjab.apps.WheresMyJabConfig',
     'rest_framework',
     'corsheaders',
 ]
@@ -52,7 +53,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'WheresMyJab.urls'
+ROOT_URLCONF = 'wheresmyjab.urls'
 
 TEMPLATES = [
     {
@@ -70,7 +71,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'WheresMyJab.wsgi.application'
+WSGI_APPLICATION = 'wheresmyjab.wsgi.application'
 
 
 # Database

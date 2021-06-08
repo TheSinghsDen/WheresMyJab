@@ -8,6 +8,8 @@ import { findSlotsLogic } from 'scenes/findSlots/findSlotsLogic'
 import { useValues, useActions } from 'kea'
 import { notificationLogic } from './notificationLogic'
 import sad from 'lib/components/HedgehogOverlay/assets/sad.svg'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import logo from 'public/logo.png'
 // const messaging = firebase.messaging()
 import './index.scss'
 
@@ -16,7 +18,7 @@ const images = {
 }
 
 const AskPermissionFirst = 'AskPermissionFirst'
-const SendTokenToServer = 'SendTokenToServer' 
+const SendTokenToServer = 'SendTokenToServer'
 
 const { Text } = Typography
 
@@ -26,7 +28,8 @@ const Subscribe: React.FC = () => {
     const { setTokenSentToServer, setFilterSettings } = useActions(notificationLogic)
     const [dialogStatus, setDialogStatus] = useState(AskPermissionFirst)
     const [notificationPermission, setNotificationPermission] = useState(Notification.permission)
-    
+
+    const [loading, setLoading] = useState(false)
 
     const handleCloseSubscribe = (): void => {
         setOpenDialog(false)
@@ -75,86 +78,101 @@ const Subscribe: React.FC = () => {
         })
     }
 
-
-    const RequestPermissionDialog:React.FC = () => (
+    const RequestPermissionDialog: React.FC = () => (
         <>
-        <div id="subscribe_notification_dialog_title" className="pa">
-        <div className="mt">
-            <Text className="dialog_title">Turn on Notifications</Text>
-        </div>
+            <div id="subscribe_notification_dialog_title" className="pa">
+                <div className="mt">
+                    <Text className="dialog_title">Turn on Notifications</Text>
+                </div>
 
-        <div className="pb pr pl mt-025">
-            <Text type="secondary" className="dialog_description">
-                You will get a notification for the following filters:
-            </Text>
-        </div>
-    </div>
+                <div className="pb pr pl mt-025">
+                    <Text type="secondary" className="dialog_description">
+                        You will get a notification for the following filters:
+                    </Text>
+                </div>
+            </div>
 
-    <div id="subscribe_notification_dialog_filters" className="pl pr pb-2">
-        <Descriptions bordered>
-            <Descriptions.Item label="District">{selectedDistrictName}</Descriptions.Item>
-            <Descriptions.Item label="Age Group">{selectedAgeGroup}+</Descriptions.Item>
-            <Descriptions.Item label="Dose">
-                {dose == 'available_capacity_dose1' ? 'Dose 1' : 'Dose 2'}{' '}
-            </Descriptions.Item>
-        </Descriptions>
-    </div>
+            <div id="subscribe_notification_dialog_filters" className="pl pr pb-2">
+                <Descriptions bordered>
+                    <Descriptions.Item label="District">{selectedDistrictName}</Descriptions.Item>
+                    <Descriptions.Item label="Age Group">{selectedAgeGroup}+</Descriptions.Item>
+                    <Descriptions.Item label="Dose">
+                        {dose == 'available_capacity_dose1' ? 'Dose 1' : 'Dose 2'}{' '}
+                    </Descriptions.Item>
+                </Descriptions>
+            </div>
 
-    <div id="subscribe_notification_dialog_actions">
-        <Divider />
+            <div id="subscribe_notification_dialog_actions">
+                <Divider />
 
-        <Button type="text" className="turn_on_button mt-05 mb-05" onClick={requestPermission}>
-            Turn On
-        </Button>
+                <Button type="text" className="turn_on_button mt-05 mb-05" onClick={requestPermission}>
+                    Turn On
+                </Button>
 
-        <Divider />
+                <Divider />
 
-        <Button type="text" className="mt-05 mb-05" onClick={handleCloseSubscribe}>
-            Not Now
-        </Button>
-    </div>
+                <Button type="text" className="mt-05 mb-05" onClick={handleCloseSubscribe}>
+                    Not Now
+                </Button>
+            </div>
         </>
     )
 
-
     const PermissionDeniedDialog: React.FC = () => (
         <>
-            <div className="mt-2" id ="permission_denied_image">
-            <img src={images['sad']} alt="Notifications Blocked" className="hedgehog"/>
+            <div className="mt-2" id="permission_denied_image">
+                <img src={images['sad']} alt="Notifications Blocked" className="hedgehog" />
             </div>
-        <div id="permission_denied_dialog_title" className="pa">
-        <div className="mt">
-            <Text className="dialog_title">Notifications Blocked</Text>
-        </div>
+            <div id="permission_denied_dialog_title" className="pa">
+                <div className="mt">
+                    <Text className="dialog_title">Notifications Blocked</Text>
+                </div>
 
-        <div className="pb pr pl mt-025">
-            <Text type="secondary" className="dialog_description">
-                Please enable them in your browser to recieve updates.
-            </Text>
-        </div>
-    </div>
+                <div className="pb pr pl mt-025">
+                    <Text type="secondary" className="dialog_description">
+                        Please enable them in your browser to recieve updates.
+                    </Text>
+                </div>
+            </div>
 
-    <div id="permission_denied_dialog_actions">
-        <Divider />
+            <div id="permission_denied_dialog_actions">
+                <Divider />
 
-        <Button type="text" className="mt-05 mb-05" onClick={handleCloseSubscribe}>
-            Close
-        </Button>
-    </div>
+                <Button type="text" className="mt-05 mb-05" onClick={handleCloseSubscribe}>
+                    Close
+                </Button>
+            </div>
         </>
     )
 
     const SendTokenToServerDialog: React.FC = () => (
         <>
-  
+            <div id="sending_token_animation" className="mt sending_token_animation">
+                {loading ? (
+                    <CircularProgress size="5rem" className="loading" />
+                ) : (
+                    <img src={logo} className={loading ? 'logo_hide' : 'logo_show'} />
+                )}
+            </div>
 
-    <div id="send_token_to_sever_dialog_actions">
-        <Divider />
+            <div id="send_token_to_sever_dialog_actions" style={{ display: loading ? 'none' : 'block' }}>
+                <div id="send_token_dialog_title" className="pa">
+                    <div>
+                        <Text className="dialog_title">Notifications Enabled</Text>
+                    </div>
 
-        <Button type="text" className="mt-05 mb-05" onClick={handleCloseSubscribe}>
-            Close
-        </Button>
-    </div>
+                    <div className="pb pr pl mt-025">
+                        <Text type="secondary" className="dialog_description">
+                            You will be notified when there's an available slot in your area.
+                        </Text>
+                    </div>
+                </div>
+                <Divider />
+
+                <Button type="text" className="mt-05 mb-05" onClick={handleCloseSubscribe}>
+                    Close
+                </Button>
+            </div>
         </>
     )
 
@@ -169,20 +187,20 @@ const Subscribe: React.FC = () => {
                 action={<ArrowForwardIosIcon fontSize="small" className="rightIcon" />}
                 className="alert_subscribe cursor-pointer"
             />
-            <Dialog open={openDialog} onClose={handleCloseSubscribe} className="text-center" id="subscribe_dialog">
-
-                {
-                    notificationPermission === 'denied' ? (
-                        <PermissionDeniedDialog/>
-                    ) : (
-                            dialogStatus === AskPermissionFirst ? ( 
-                            <RequestPermissionDialog /> 
-                            ) : (
-                                <SendTokenToServerDialog />
-                            )        
-                    )
-                }
-                
+            <Dialog
+                open={openDialog}
+                onClose={handleCloseSubscribe}
+                className="text-center"
+                id="subscribe_dialog"
+                disableBackdropClick={loading}
+            >
+                {notificationPermission === 'denied' ? (
+                    <PermissionDeniedDialog />
+                ) : dialogStatus === AskPermissionFirst ? (
+                    <RequestPermissionDialog />
+                ) : (
+                    <SendTokenToServerDialog />
+                )}
             </Dialog>
         </div>
     )
