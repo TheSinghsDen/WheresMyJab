@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import NotificationsIcon from '@material-ui/icons/Notifications'
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos'
 import Divider from '@material-ui/core/Divider'
@@ -29,11 +29,15 @@ const Subscribe: React.FC = () => {
     const [dialogStatus, setDialogStatus] = useState(AskPermissionFirst)
     const [notificationPermission, setNotificationPermission] = useState(Notification.permission)
 
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
 
     const handleCloseSubscribe = (): void => {
         setOpenDialog(false)
     }
+
+    useEffect(() => {
+        setTimeout(()=>setLoading(!loading),10000)
+    }, [])
 
     const resetUI = (): void => {
         messaging
@@ -155,7 +159,7 @@ const Subscribe: React.FC = () => {
                 )}
             </div>
 
-            <div id="send_token_to_sever_dialog_actions" style={{ display: loading ? 'none' : 'block' }}>
+            <div id="send_token_to_sever_dialog_actions" style={{ visibility: loading ? 'hidden' : 'visible' }}>
                 <div id="send_token_dialog_title" className="pa">
                     <div>
                         <Text className="dialog_title">Notifications Enabled</Text>
@@ -163,7 +167,7 @@ const Subscribe: React.FC = () => {
 
                     <div className="pb pr pl mt-025">
                         <Text type="secondary" className="dialog_description">
-                            You will be notified when there's an available slot in your area.
+                            You will be notified when there's a slot available in your area.
                         </Text>
                     </div>
                 </div>
@@ -196,7 +200,7 @@ const Subscribe: React.FC = () => {
             >
                 {notificationPermission === 'denied' ? (
                     <PermissionDeniedDialog />
-                ) : dialogStatus === AskPermissionFirst ? (
+                ) : dialogStatus === !AskPermissionFirst ? (
                     <RequestPermissionDialog />
                 ) : (
                     <SendTokenToServerDialog />

@@ -44,7 +44,7 @@ const Unsubscribe: React.FC = () => {
     return (
         <div>
             <Alert
-                message="Unsubscribe / Change Notification Settings"
+                message="Disable / Change Notification Settings"
                 type="warning"
                 onClick={() => setOpenUnsubscribe(true)}
                 showIcon
