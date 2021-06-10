@@ -48,5 +48,11 @@ export const dayWiseListLogic = kea<dayWiseListLogicType>({
                 })
             },
         ],
+        availableSlots: [
+            (selectors) => [selectors.slotsForAllDays],
+            (slotsForAllDays) => {
+                return slotsForAllDays.reduce((a, b) => a + (b['slotCapacity'] || 0), 0)
+            },
+        ],
     },
 })

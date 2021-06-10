@@ -10,7 +10,35 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import os
 from pathlib import Path
+from typing import Any, Callable, List, Optional
+
+import dj_database_url
+from django.core.exceptions import ImproperlyConfigured
+from wheresmyjab.utils import str_to_bool
+
+
+def get_from_env(key: str, default: Any = None, *, optional: bool = False, type_cast: Optional[Callable] = None) -> Any:
+    value = os.getenv(key)
+    if value is None:
+        if optional:
+            return None
+        if default is not None:
+            return default
+        else:
+            raise ImproperlyConfigured(
+                f'The environment variable "{key}" is required to run WheresMyJab!')
+    if type_cast is not None:
+        return type_cast(value)
+    return value
+
+
+def get_list(text: str) -> List[str]:
+    if not text:
+        return []
+    return [item.strip() for item in text.split(",")]
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,9 +51,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-hl5c!v$44@(6c6x9&t)uw4-z$7x1ll0t(ibk!sr^#3+*ci+5uh'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = get_from_env("DEBUG", False, type_cast=str_to_bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = get_list(os.getenv("ALLOWED_HOSTS", "*"))
 
 
 # Application definition
@@ -37,6 +65,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'wheresmyjab.apps.WheresMyJabConfig',
     'rest_framework',
     'corsheaders',
 ]
@@ -52,7 +81,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'WheresMyJab.urls'
+ROOT_URLCONF = 'wheresmyjab.urls'
 
 TEMPLATES = [
     {
@@ -70,18 +99,25 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'WheresMyJab.wsgi.application'
+WSGI_APPLICATION = 'wheresmyjab.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+if DEBUG:
+    DATABASE_URL = os.getenv(
+        "DATABASE_URL", "postgres://localhost:5432/wheresmyjab")
+else:
+    DATABASE_URL = os.getenv("DATABASE_URL", "")
+
+if DATABASE_URL:
+    DATABASES = {"default": dj_database_url.config(
+        default=DATABASE_URL, conn_max_age=600)}
+else:
+    raise ImproperlyConfigured(
+        f'The environment vars "DATABASE_URL" is absolutely required to run this software'
+    )
 
 
 # Password validation
@@ -126,3 +162,10 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+
+# FCM SETTINGS
+FCM_SERVER_KEY = os.getenv("FCM_SERVER_KEY", None)
+FCM_SERVER = os.getenv("FCM_SERVER", "https://fcm.googleapis.com/fcm/send")

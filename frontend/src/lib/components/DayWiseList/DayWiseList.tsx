@@ -6,11 +6,12 @@ import { RightOutlined } from '@ant-design/icons'
 import { dayWiseListLogic } from './dayWiseListLogic'
 import { listDailySlotsLogic } from 'scenes/listDailySlots/listDailySlotsLogic'
 import { HumanFriendlySlotCapacity, humanFriendlyDate } from 'lib/utils'
+import Notification from 'lib/components/Notification/Notification'
 
 const { Text } = Typography
 
 const DayWiseList: React.FC = () => {
-    const { slotsForAllDays } = useValues(dayWiseListLogic)
+    const { slotsForAllDays, availableSlots } = useValues(dayWiseListLogic)
     const { setDate } = useActions(listDailySlotsLogic)
     const { push } = useActions(router)
 
@@ -21,6 +22,7 @@ const DayWiseList: React.FC = () => {
 
     return (
         <div className="pa mt2">
+            {!availableSlots && <Notification />}
             <List
                 dataSource={slotsForAllDays}
                 footer

@@ -35,9 +35,7 @@ export const listDailySlotsLogic = kea<listDailySlotsLogicType>({
         filteredSessions: [
             (selectors) => [selectors.centers],
             (centers) => {
-                const appliedVaccineFilter = Object.keys(findSlotsLogic.values.vaccine).filter((k) => {
-                    return findSlotsLogic.values.vaccine[k]
-                })
+                const appliedVaccineFilter = findSlotsLogic.values.appliedVaccineFilter
                 const appliedAgeFilter = findSlotsLogic.values.selectedAgeGroup
                 const appliedDoseFilter = findSlotsLogic.values.dose
 

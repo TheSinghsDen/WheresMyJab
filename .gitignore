@@ -1,6 +1,9 @@
 venv
 env
+.env
 .venv
+*.log
+*.pot
 *.pyc
 __pycache__/
 staticfiles
