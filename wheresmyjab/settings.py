@@ -107,7 +107,7 @@ WSGI_APPLICATION = 'wheresmyjab.wsgi.application'
 
 if DEBUG:
     DATABASE_URL = os.getenv(
-        "DATABASE_URL", "postgres://localhost:5432/posthog")
+        "DATABASE_URL", "postgres://localhost:5432/wheresmyjab")
 else:
     DATABASE_URL = os.getenv("DATABASE_URL", "")
 
