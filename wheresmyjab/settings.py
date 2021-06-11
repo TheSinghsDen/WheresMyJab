@@ -114,6 +114,8 @@ else:
 if DATABASE_URL:
     DATABASES = {"default": dj_database_url.config(
         default=DATABASE_URL, conn_max_age=600)}
+    if DEBUG:
+        del DATABASES['default']['PASSWORD'], DATABASES['default']['HOST'], DATABASES['default']['PORT']
 else:
     raise ImproperlyConfigured(
         f'The environment vars "DATABASE_URL" is absolutely required to run this software'
