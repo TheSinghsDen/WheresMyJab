@@ -6,7 +6,7 @@ import Dialog from '@material-ui/core/Dialog'
 import { Alert, Typography, Button, Descriptions } from 'antd'
 import { useValues, useActions } from 'kea'
 import { notificationLogic } from './notificationLogic'
-// const messaging = firebase.messaging()
+const messaging = firebase.messaging()
 
 import './index.scss'
 

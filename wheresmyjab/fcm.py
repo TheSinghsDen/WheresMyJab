@@ -5,7 +5,6 @@ from .decorators import str_to_list
 
 def fcm_send_topic_message(
         api_key=None,
-        json_encoder=None,
         topic_name=None,
         message_body=None,
         message_title=None,
@@ -35,7 +34,7 @@ def fcm_send_topic_message(
     if api_key is None:
         api_key = FCM_SERVER_KEY
         push_service = FCMNotification(
-            api_key=api_key, json_encoder=json_encoder)
+            api_key=api_key)
 
     result = push_service.notify_topic_subscribers(
         topic_name=topic_name,
@@ -68,12 +67,11 @@ def fcm_send_topic_message(
     return result
 
 
-@str_to_list
 def fcm_subscribe_device_to_topic(api_key=None, tokens=None, topic=None):
     if api_key is None:
         api_key = FCM_SERVER_KEY
         push_service = FCMNotification(
-            api_key=api_key, json_encoder=json_encoder)
+            api_key=api_key)
 
     subscribed = push_service.subscribe_registration_ids_to_topic(
         tokens, topic)

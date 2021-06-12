@@ -3,7 +3,7 @@ import { useValues, useActions } from 'kea'
 import { notificationLogic } from './notificationLogic'
 import Subscribe from './Subscribe'
 import UnSubscribe from './UnSubscibe'
-// const messaging = firebase.messaging()
+const messaging = firebase.messaging()
 
 import './index.scss'
 

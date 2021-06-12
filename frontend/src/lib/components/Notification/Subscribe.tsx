@@ -10,7 +10,7 @@ import { notificationLogic } from './notificationLogic'
 import sad from 'lib/components/HedgehogOverlay/assets/sad.svg'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import logo from 'public/logo.png'
-// const messaging = firebase.messaging()
+const messaging = firebase.messaging()
 import './index.scss'
 
 const images = {
@@ -34,10 +34,6 @@ const Subscribe: React.FC = () => {
     const handleCloseSubscribe = (): void => {
         setOpenDialog(false)
     }
-
-    useEffect(() => {
-        setTimeout(()=>setLoading(!loading),10000)
-    }, [])
 
     const resetUI = (): void => {
         messaging
@@ -200,7 +196,7 @@ const Subscribe: React.FC = () => {
             >
                 {notificationPermission === 'denied' ? (
                     <PermissionDeniedDialog />
-                ) : dialogStatus === !AskPermissionFirst ? (
+                ) : dialogStatus === AskPermissionFirst ? (
                     <RequestPermissionDialog />
                 ) : (
                     <SendTokenToServerDialog />
