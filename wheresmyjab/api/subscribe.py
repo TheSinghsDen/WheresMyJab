@@ -29,5 +29,6 @@ class SubscribeViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin,):
         )
 
         if district and topic:
-            # fcm_subscribe_device_to_topic(tokens=[device_token], topic=topic_name)
+            fcm_subscribe_device_to_topic(
+                tokens=[device_token], topic=topic_name)
             return Response({"detail": "Device has been registered with the provided topic"})

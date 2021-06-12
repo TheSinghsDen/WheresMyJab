@@ -3,7 +3,7 @@ import time
 from datetime import datetime, timedelta
 import json
 from wheresmyjab.fcm import fcm_send_topic_message
-from wheresmyjab.models import Topics, Districts
+from wheresmyjab.models import Topics
 
 
 def is_topic_available_for_notification(topic_name):
@@ -68,11 +68,3 @@ def fetch_slots_in_district(district_id):
                             message_title="Vaccine slots open for 45+ age group",
                             message_body=f"{session['available_capacity_dose2']} slots available on {session['date']} at {center['name']}."
                         )
-
-
-def poll_cowin_for_updates():
-    while True:
-        districts = Districts.objects.all()
-        for district in districts:
-            fetch_slots_in_district(district.district_id)
-            time.sleep(4)  # Poll cowin every 4 seconds to avoid crossing limit

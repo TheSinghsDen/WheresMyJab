@@ -73,10 +73,10 @@ FLAGS=()
 [[ -n "${WEB_CONCURRENCY}" ]]    && FLAGS+=" --concurrency $WEB_CONCURRENCY"
 
 echo
-echo "celery -A posthog worker ${FLAGS[*]}"
+echo "celery -A wheresmyjab worker ${FLAGS[*]}"
 echo
-# Warning: Changing the command below affects posthog-cloud. Please check ./bin/pull_main for details
-celery -A posthog worker ${FLAGS[*]}
+
+celery -A wheresmyjab worker ${FLAGS[*]}
 
 # Stop the beat!
 trap 'kill $(jobs -p)' EXIT
