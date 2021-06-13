@@ -11,12 +11,13 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 import os
+import sys
 from pathlib import Path
 from typing import Any, Callable, List, Optional
 
 import dj_database_url
 from django.core.exceptions import ImproperlyConfigured
-from wheresmyjab.utils import str_to_bool
+from wheresmyjab.utils import str_to_bool, print_warning
 
 
 def get_from_env(key: str, default: Any = None, *, optional: bool = False, type_cast: Optional[Callable] = None) -> Any:
@@ -43,15 +44,18 @@ def get_list(text: str) -> List[str]:
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = get_from_env("DEBUG", False, type_cast=str_to_bool)
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-hl5c!v$44@(6c6x9&t)uw4-z$7x1ll0t(ibk!sr^#3+*ci+5uh'
+DEFAULT_SECRET_KEY = "<randomly generated secret key>"
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = get_from_env("DEBUG", False, type_cast=str_to_bool)
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.getenv("SECRET_KEY", DEFAULT_SECRET_KEY)
+
 
 ALLOWED_HOSTS = get_list(os.getenv("ALLOWED_HOSTS", "*"))
 
@@ -70,6 +74,14 @@ INSTALLED_APPS = [
     'corsheaders',
 ]
 
+# Use django-extensions if it exists
+try:
+    import django_extensions  # noqa: F401
+except ImportError:
+    pass
+else:
+    INSTALLED_APPS.append("django_extensions")
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -80,6 +92,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'wheresmyjab.urls'
 
@@ -121,6 +135,21 @@ else:
         f'The environment vars "DATABASE_URL" is absolutely required to run this software'
     )
 
+# Broker
+if DEBUG or (len(sys.argv) > 1 and sys.argv[1] == "collectstatic"):
+    REDIS_URL = os.getenv("REDIS_URL", "redis://localhost/")
+else:
+    REDIS_URL = os.getenv("REDIS_URL", "")
+
+if not REDIS_URL:
+    raise ImproperlyConfigured(
+        "Env var REDIS_URL is absolutely required to run this software.")
+
+CELERY_BROKER_URL = REDIS_URL  # celery connects to redis
+CELERY_RESULT_BACKEND = REDIS_URL  # stores results for lookup when processing
+# only applies to delay(), must do @shared_task(ignore_result=True) for apply_async
+CELERY_IGNORE_RESULT = True
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -158,15 +187,29 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+if DEBUG:
+    print_warning(
+        (
+            "️Environment variable DEBUG is set - WheresMyJab is running in DEVELOPMENT MODE!",
+            "Be sure to unset DEBUG if this is supposed to be a PRODUCTION ENVIRONMENT!",
+        )
+    )
+
+if not DEBUG and SECRET_KEY == DEFAULT_SECRET_KEY:
+    print_warning(
+        (
+            "You are using the default SECRET_KEY in a production environment!",
+            "For the safety of your instance, you must generate and set a unique key."
+        )
+    )
+    sys.exit("[ERROR] Default SECRET_KEY in production. Stopping Django server…\n")
+
 STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-CORS_ORIGIN_ALLOW_ALL = True
-
 
 # FCM SETTINGS
 FCM_SERVER_KEY = os.getenv("FCM_SERVER_KEY", None)
