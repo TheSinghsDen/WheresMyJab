@@ -222,6 +222,6 @@ LOGGING = {
     "handlers": {"console": {"class": "logging.StreamHandler", }, },
     "root": {"handlers": ["console"], "level": os.getenv("DJANGO_LOG_LEVEL", "INFO")},
     "loggers": {
-        "django": {"handlers": ["console"], "level": os.getenv("DJANGO_LOG_LEVEL", "INFP"), "propagate": True, },
+        "django": {"handlers": ["console"], "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"), "propagate": True, },
     },
 }
