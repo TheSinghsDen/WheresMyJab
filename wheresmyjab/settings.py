@@ -136,19 +136,19 @@ else:
     )
 
 # Broker
-if DEBUG or (len(sys.argv) > 1 and sys.argv[1] == "collectstatic"):
-    REDIS_URL = os.getenv("REDIS_URL", "redis://localhost/")
-else:
-    REDIS_URL = os.getenv("REDIS_URL", "")
+# if DEBUG or (len(sys.argv) > 1 and sys.argv[1] == "collectstatic"):
+#     REDIS_URL = os.getenv("REDIS_URL", "redis://localhost/")
+# else:
+#     REDIS_URL = os.getenv("REDIS_URL", "")
 
-if not REDIS_URL:
-    raise ImproperlyConfigured(
-        "Env var REDIS_URL is absolutely required to run this software.")
+# if not REDIS_URL:
+#     raise ImproperlyConfigured(
+#         "Env var REDIS_URL is absolutely required to run this software.")
 
-CELERY_BROKER_URL = REDIS_URL  # celery connects to redis
-CELERY_RESULT_BACKEND = REDIS_URL  # stores results for lookup when processing
-# only applies to delay(), must do @shared_task(ignore_result=True) for apply_async
-CELERY_IGNORE_RESULT = True
+# CELERY_BROKER_URL = REDIS_URL  # celery connects to redis
+# CELERY_RESULT_BACKEND = REDIS_URL  # stores results for lookup when processing
+# # only applies to delay(), must do @shared_task(ignore_result=True) for apply_async
+# CELERY_IGNORE_RESULT = True
 
 
 # Password validation

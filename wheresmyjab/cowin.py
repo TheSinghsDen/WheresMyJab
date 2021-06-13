@@ -10,13 +10,12 @@ def is_topic_available_for_notification(topic_name):
     is_topic_available = False
     time_threshold = datetime.now() - timedelta(hours=1)
 
-    # Check if users are subscribed to the given topic
-    topic_exists = Topics.objects.get(name=topic_name).exists()
+    # Check if users are subscribed to the given topic and more than 1 hour has elapsed since the last notification
+    topic_exists = Topics.objects.get(
+        name=topic_name, last_notified_at__lt=time_threshold)
 
-    # Check if more than 1 hour has elapsed since the last notification
     if topic_exists:
-        is_topic_available = Topics.objects.get(
-            name=topic_name, last_notified_at__lt=time_threshold).exists()
+        is_topic_available = True
 
     return is_topic_available
 
