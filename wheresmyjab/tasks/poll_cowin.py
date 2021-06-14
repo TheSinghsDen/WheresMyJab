@@ -12,6 +12,7 @@ from wheresmyjab.cowin import fetch_slots_in_district
 # @shared_task
 def poll_cowin_for_updates():
     while True:
+        time.sleep(30)  # Sleep for 30 seconds before running again
         districts = Districts.objects.all()
         for district in districts:
             fetch_slots_in_district(district.district_id)
