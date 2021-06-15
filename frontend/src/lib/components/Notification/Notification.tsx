@@ -3,16 +3,18 @@ import { useValues, useActions } from 'kea'
 import { notificationLogic } from './notificationLogic'
 import Subscribe from './Subscribe'
 import UnSubscribe from './UnSubscibe'
-const messaging = firebase.messaging()
-
 import './index.scss'
 
+const messaging = firebase.messaging()
+
 const Notifications: React.FC = () => {
-    const { setTokenSentToServer } = useActions(notificationLogic)
-    const { isTokenSentToServer } = useValues(notificationLogic)
+    const { setTokenSentToServer, sendDataToServer } = useActions(notificationLogic)
+    const { isTokenSentToServer, token, filterSettings } = useValues(notificationLogic)
 
     useEffect(() => {
-        resetUI()
+        if (isTokenSentToServer) {
+            resetUI()
+        }
     }, [])
 
     const resetUI = (): void => {
@@ -38,13 +40,11 @@ const Notifications: React.FC = () => {
     }
 
     const sendTokenToServer = (currentToken: string): void => {
-        if (!isTokenSentToServer) {
-            console.log('Sending token to server...', currentToken)
-            // TODO(developer): Send the current token to your server.
-
-            setTokenSentToServer(true)
-        } else {
-            console.log("Token already sent to server so won't send it again " + 'unless it changes')
+        if (token !== currentToken && filterSettings !== "") {
+            sendDataToServer({
+                topic_name: filterSettings,
+                device_token: currentToken
+            }) 
         }
     }
 

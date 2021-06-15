@@ -7,5 +7,3 @@ def str_to_list(func):
         args = [args]
         return func(*args, **kwargs)
     return wrapper
-
-# Just for testing

@@ -1,16 +1,10 @@
 import time
-# import logging
-
-# from celery import shared_task
 
 from wheresmyjab.models import Districts
 from wheresmyjab.cowin import fetch_slots_in_district
 
-# logger = logging.getLogger(__name__)
 
-
-# @shared_task
-def poll_cowin_for_updates():
+def run():
     while True:
         time.sleep(30)  # Sleep for 30 seconds before running again
         districts = Districts.objects.all()

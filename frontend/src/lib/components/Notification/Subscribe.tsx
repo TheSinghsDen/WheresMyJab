@@ -10,8 +10,9 @@ import { notificationLogic } from './notificationLogic'
 import sad from 'lib/components/HedgehogOverlay/assets/sad.svg'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import logo from 'public/logo.png'
-const messaging = firebase.messaging()
 import './index.scss'
+
+const messaging = firebase.messaging()
 
 const images = {
     sad,
@@ -24,15 +25,18 @@ const { Text } = Typography
 
 const Subscribe: React.FC = () => {
     const [openDialog, setOpenDialog] = useState(false)
-    const { selectedDistrictName, dose, selectedAgeGroup } = useValues(findSlotsLogic)
-    const { setTokenSentToServer, setFilterSettings } = useActions(notificationLogic)
+    const { selectedDistrict, selectedDistrictName, dose, selectedAgeGroup } = useValues(findSlotsLogic)
+    const { setTokenSentToServer, setFilterSettings, sendDataToServer,setToken } = useActions(notificationLogic)
+    const { filterSettings } = useValues(notificationLogic)
+    const [loading, setLoading] = useState(false)
     const [dialogStatus, setDialogStatus] = useState(AskPermissionFirst)
     const [notificationPermission, setNotificationPermission] = useState(Notification.permission)
 
-    const [loading, setLoading] = useState(true)
-
     const handleCloseSubscribe = (): void => {
         setOpenDialog(false)
+        if (filterSettings) {
+            setTokenSentToServer(true)
+        }
     }
 
     const resetUI = (): void => {
@@ -56,21 +60,31 @@ const Subscribe: React.FC = () => {
     }
 
     const sendTokenToServer = (currentToken: string): void => {
-        setDialogStatus(SendTokenToServer)
+        const topic_name = `${selectedDistrict}_${selectedDistrictName}_${selectedAgeGroup}_${dose == 'available_capacity_dose1' ? 'dose1' : 'dose2'}`
         console.log('Sending token to server...', currentToken)
-        // TODO(developer): Send the current token to your server.
-
-        setTokenSentToServer(true)
-        setFilterSettings(`${selectedDistrictName}|${dose}|${selectedAgeGroup}`)
+        sendDataToServer({
+            topic_name: topic_name,
+            device_token: currentToken
+        })
+        console.log(topic_name)
+        setLoading(false)
+        setFilterSettings(topic_name)
+        setToken(currentToken)
+        setTimeout(() => {
+            setTokenSentToServer(true)
+        }, 10000);
     }
+1
 
     const requestPermission = (): void => {
+        setDialogStatus(SendTokenToServer)
+        setLoading(true)
         console.log('Requesting permission.....')
         Notification.requestPermission().then((permission) => {
             if (permission === 'granted') {
                 console.log('Notification permission granted')
                 setNotificationPermission(permission)
-                resetUI()
+                resetUI()  
             } else {
                 console.log('Unable to get permission to notify')
                 setNotificationPermission(permission)

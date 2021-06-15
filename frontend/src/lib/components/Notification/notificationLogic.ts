@@ -1,10 +1,17 @@
 import { kea } from 'kea'
+import api from 'lib/api'
 import { notificationLogicType } from './notificationLogicType'
+
+interface SendTokenPayloadInterface {
+    topic_name: string
+    device_token: string
+}
 
 export const notificationLogic = kea<notificationLogicType>({
     actions: () => ({
         setTokenSentToServer: (isTokenSentToServer: boolean) => ({ isTokenSentToServer }),
         setFilterSettings: (filterSettings: string) => ({ filterSettings }),
+        setToken: (token: string) => ({ token }),
         reset: true,
     }),
     reducers: () => ({
@@ -24,5 +31,19 @@ export const notificationLogic = kea<notificationLogicType>({
                 reset: () => '',
             },
         ],
+        token: [
+            '',
+            { persist: true },
+            {
+                setToken: (_: any, { token }) => token,
+                reset: () => '',
+            },
+        ],
     }),
+    listeners: {
+        sendDataToServer: async (payload?: SendTokenPayloadInterface) => {
+            const response = await api.create(`localhost:5000/api/subscribe`, payload)
+            console.log(response)
+        }
+    }
 })

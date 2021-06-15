@@ -6,9 +6,9 @@ import Dialog from '@material-ui/core/Dialog'
 import { Alert, Typography, Button, Descriptions } from 'antd'
 import { useValues, useActions } from 'kea'
 import { notificationLogic } from './notificationLogic'
-const messaging = firebase.messaging()
-
 import './index.scss'
+
+const messaging = firebase.messaging()
 
 const { Text } = Typography
 
@@ -30,6 +30,7 @@ const Unsubscribe: React.FC = () => {
                     .deleteToken(currentToken)
                     .then(() => {
                         console.log('Token deleted.')
+                        handleCloseUnsubscribe()
                         reset()
                     })
                     .catch((err) => {
@@ -73,10 +74,10 @@ const Unsubscribe: React.FC = () => {
 
                 <div id="unsubscribe_notification_dialog_filters" className="pl pr pb-2">
                     <Descriptions bordered>
-                        <Descriptions.Item label="District">{filterSettings.split('|')[0]}</Descriptions.Item>
-                        <Descriptions.Item label="Age Group">{filterSettings.split('|')[2]}+</Descriptions.Item>
+                        <Descriptions.Item label="District">{filterSettings.split('_')[1]}</Descriptions.Item>
+                        <Descriptions.Item label="Age Group">{filterSettings.split('_')[2]}+</Descriptions.Item>
                         <Descriptions.Item label="Dose">
-                            {filterSettings.split('|')[1] == 'available_capacity_dose1' ? 'Dose 1' : 'Dose 2'}{' '}
+                            {filterSettings.split('_')[3] == 'dose1' ? 'Dose 1' : 'Dose 2'}{' '}
                         </Descriptions.Item>
                     </Descriptions>
                 </div>
