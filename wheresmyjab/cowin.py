@@ -43,10 +43,12 @@ def fetch_slots_in_district(district_id):
     print(f"Fecting slots in district_id {district_id}")
 
     today = timezone.now().today().strftime('%d-%m-%Y')
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
     api_url = 'https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict/'
     payload = {'district_id': district_id, 'date': today}
 
-    response = requests.get(api_url, params=payload)
+    response = requests.get(api_url, headers=headers, params=payload)
 
     if(response.status_code == 200):
         centers = json.loads(response.content)['centers']
