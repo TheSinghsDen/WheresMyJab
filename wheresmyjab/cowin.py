@@ -112,4 +112,5 @@ def fetch_slots_in_district(district_id):
         if(no_slots_available):
             print("No slots are available")
     else:
-        print("Error fetching slots in the with the given parameters !")
+        print("Error fetching slots with the given parameters !")
+        print(response)
