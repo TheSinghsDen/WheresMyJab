@@ -1,6 +1,6 @@
 importScripts('/__/firebase/8.6.3/firebase-app.js')
 importScripts('/__/firebase/8.6.3/firebase-messaging.js')
-importScripts('/__/firebase/init.js?useEmulator=true')
+importScripts('/__/firebase/init.js')
 
 const messaging = firebase.messaging()
 
@@ -8,10 +8,10 @@ messaging.onBackgroundMessage(function (payload) {
     console.log('[firebase-messaging-sw.js] Received background message ', payload)
     // Customize notification here
     console.log(payload)
-    const notificationTitle = 'Background Message Title'
+    const notificationTitle = payload.notification.title
     const notificationOptions = {
-        body: 'Background Message body.',
-        icon: '/firebase-logo.png',
+        body: payload.notification.body,
+        icon: '/logo.png',
     }
 
     self.registration.showNotification(notificationTitle, notificationOptions)
