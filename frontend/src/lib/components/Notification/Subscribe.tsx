@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import NotificationsIcon from '@material-ui/icons/Notifications'
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos'
 import Divider from '@material-ui/core/Divider'
@@ -26,7 +26,7 @@ const { Text } = Typography
 const Subscribe: React.FC = () => {
     const [openDialog, setOpenDialog] = useState(false)
     const { selectedDistrict, selectedDistrictName, dose, selectedAgeGroup } = useValues(findSlotsLogic)
-    const { setTokenSentToServer, setFilterSettings, sendDataToServer,setToken } = useActions(notificationLogic)
+    const { setTokenSentToServer, setFilterSettings, subscribeToTopic,setToken } = useActions(notificationLogic)
     const { filterSettings } = useValues(notificationLogic)
     const [loading, setLoading] = useState(false)
     const [dialogStatus, setDialogStatus] = useState(AskPermissionFirst)
@@ -62,11 +62,12 @@ const Subscribe: React.FC = () => {
     const sendTokenToServer = (currentToken: string): void => {
         const topic_name = `${selectedDistrict}_${selectedDistrictName}_${selectedAgeGroup}_${dose == 'available_capacity_dose1' ? 'dose1' : 'dose2'}`
         console.log('Sending token to server...', currentToken)
-        sendDataToServer({
-            topic_name: topic_name,
+        const payload = {
+            topic_name: topic_name.replace(/ /g,''),
             device_token: currentToken
-        })
-        console.log(topic_name)
+        }
+        subscribeToTopic(payload)
+        console.log(topic_name.replace(/ /g,''))
         setLoading(false)
         setFilterSettings(topic_name)
         setToken(currentToken)
@@ -84,7 +85,7 @@ const Subscribe: React.FC = () => {
             if (permission === 'granted') {
                 console.log('Notification permission granted')
                 setNotificationPermission(permission)
-                resetUI()  
+                resetUI()
             } else {
                 console.log('Unable to get permission to notify')
                 setNotificationPermission(permission)

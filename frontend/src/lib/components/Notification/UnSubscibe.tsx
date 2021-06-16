@@ -67,7 +67,7 @@ const Unsubscribe: React.FC = () => {
 
                     <div className="pb pr pl mt-025">
                         <Text type="secondary" className="dialog_description">
-                            You have already set notification for the following filters. Turn off to setup again.
+                            You have set notification for the following filters. Turn off to setup again.
                         </Text>
                     </div>
                 </div>

@@ -1,5 +1,7 @@
-from rest_framework import viewsets, mixins, serializers
+from rest_framework import viewsets, mixins, serializers, status
 from rest_framework.response import Response
+from datetime import timedelta
+from django.utils import timezone
 from wheresmyjab.models import Districts, Topics
 from wheresmyjab.fcm import fcm_subscribe_device_to_topic
 
@@ -26,9 +28,15 @@ class SubscribeViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin,):
         topic = Topics.objects.get_or_create(
             name=topic_name,
             district_id=district_id,
+            defaults={'last_notified_at': timezone.now() - timedelta(hours=1)},
         )
 
         if district and topic:
-            fcm_subscribe_device_to_topic(
+            isSubscribed = fcm_subscribe_device_to_topic(
                 tokens=[device_token], topic=topic_name)
-            return Response({"detail": "Device has been registered with the provided topic"})
+
+            if isSubscribed:
+                return Response({"detail": "Device has been registered with the provided topic"})
+
+            else:
+                return Response({"error": "Device could not be registered with topic"}, status=status.HTTP_400_BAD_REQUEST)

@@ -40,10 +40,16 @@ export const notificationLogic = kea<notificationLogicType>({
             },
         ],
     }),
-    listeners: {
-        sendDataToServer: async (payload?: SendTokenPayloadInterface) => {
-            const response = await api.create(`localhost:5000/api/subscribe`, payload)
-            console.log(response)
-        }
-    }
+    loaders: () => ({
+        subscribeToTopic: [
+            null as null,
+            {
+                subscribeToTopic: async (payload: SendTokenPayloadInterface) => {
+                    const response = await api.create(`http://localhost:5000/api/subscribe`, payload)
+                    console.log(response)
+                    return response
+                },
+            },
+        ],
+    }),
 })

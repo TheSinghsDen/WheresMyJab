@@ -8,7 +8,7 @@ import './index.scss'
 const messaging = firebase.messaging()
 
 const Notifications: React.FC = () => {
-    const { setTokenSentToServer, sendDataToServer } = useActions(notificationLogic)
+    const { setTokenSentToServer, subscribeToTopic } = useActions(notificationLogic)
     const { isTokenSentToServer, token, filterSettings } = useValues(notificationLogic)
 
     useEffect(() => {
@@ -41,10 +41,12 @@ const Notifications: React.FC = () => {
 
     const sendTokenToServer = (currentToken: string): void => {
         if (token !== currentToken && filterSettings !== "") {
-            sendDataToServer({
+            const payload = {
                 topic_name: filterSettings,
                 device_token: currentToken
-            }) 
+            }
+
+            subscribeToTopic(payload) 
         }
     }
 
