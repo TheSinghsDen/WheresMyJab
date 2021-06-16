@@ -7,6 +7,9 @@ interface SendTokenPayloadInterface {
     device_token: string
 }
 
+// const API_URL = 'http://localhost:5000/api/subscribe'
+const API_URL = 'https://wheresmyjab.herokuapp.com/api/subscribe'
+
 export const notificationLogic = kea<notificationLogicType>({
     actions: () => ({
         setTokenSentToServer: (isTokenSentToServer: boolean) => ({ isTokenSentToServer }),
@@ -45,7 +48,7 @@ export const notificationLogic = kea<notificationLogicType>({
             null as null,
             {
                 subscribeToTopic: async (payload: SendTokenPayloadInterface) => {
-                    const response = await api.create(`http://localhost:5000/api/subscribe`, payload)
+                    const response = await api.create(API_URL, payload)
                     console.log(response)
                     return response
                 },

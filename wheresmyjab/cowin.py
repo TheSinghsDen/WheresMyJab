@@ -20,13 +20,13 @@ def is_topic_available_for_notification(topic_name):
         return False
 
 
-def send_notification(topic_name, age_limit, available_slots, date, center_name):
+def send_notification(topic_name, age_limit, available_slots, date, center_name, center_address):
     print(f"Sending notification for topic {topic_name}")
 
     response = fcm_send_topic_message(
         topic_name=topic_name,
         message_title=f"Vaccine slots open for {age_limit}+ age group",
-        message_body=f"{available_slots} slots available on {date} at {center_name}.",
+        message_body=f"There are {available_slots} slots available on {date} at {center_name}, {center_address}.",
         color='blue'
     )
 
@@ -64,7 +64,8 @@ def fetch_slots_in_district(district_id):
                             session['min_age_limit'],
                             session['available_capacity_dose1'],
                             session['date'],
-                            center['name']
+                            center['name'],
+                            center['address']
                         )
 
                 if session['available_capacity_dose1'] and session['min_age_limit'] == 45:
@@ -77,7 +78,8 @@ def fetch_slots_in_district(district_id):
                             session['min_age_limit'],
                             session['available_capacity_dose1'],
                             session['date'],
-                            center['name']
+                            center['name'],
+                            center['address']
                         )
 
                 if session['available_capacity_dose2'] and session['min_age_limit'] == 18:
@@ -90,7 +92,8 @@ def fetch_slots_in_district(district_id):
                             session['min_age_limit'],
                             session['available_capacity_dose2'],
                             session['date'],
-                            center['name']
+                            center['name'],
+                            center['address']
                         )
 
                 if session['available_capacity_dose2'] and session['min_age_limit'] == 45:
@@ -103,7 +106,8 @@ def fetch_slots_in_district(district_id):
                             session['min_age_limit'],
                             session['available_capacity_dose2'],
                             session['date'],
-                            center['name']
+                            center['name'],
+                            center['address']
                         )
         if(no_slots_available):
             print("No slots are available")
