@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        command: sh -c "python3 manage.py runscript poll_cowin --traceback"
+        logging:
+            driver: 'awslogs'
+            options:
+                awslogs-region: 'ap-south-1'
+                awslogs-group: 'wheresmyjab-group'
+                awslogs-stream: 'wheresmyjab-stream'
+        env_file: .env
