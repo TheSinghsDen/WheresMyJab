@@ -30,6 +30,13 @@ def send_notification(topic_name, age_limit, available_slots, date, center_name,
         message_title=f"Vaccine slots open for {age_limit}+ age group",
         message_body=f"There are {available_slots} slots available on {date} at {center_name}, {center_address}.",
         message_icon=message_icon_url,
+        extra_kwargs={
+            "webpush": {
+                "fcm_options": {
+                    "link": "https://wheresmyjab.com"
+                }
+            }
+        },
         color='blue'
     )
 
