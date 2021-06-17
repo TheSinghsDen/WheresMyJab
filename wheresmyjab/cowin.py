@@ -6,6 +6,8 @@ import json
 from wheresmyjab.fcm import fcm_send_topic_message
 from wheresmyjab.models import Topics
 
+message_icon_url = 'https://i.ibb.co/L599jvc/logo.png'
+
 
 def is_topic_available_for_notification(topic_name):
     time_threshold = timezone.now() - timedelta(hours=1)
@@ -27,6 +29,7 @@ def send_notification(topic_name, age_limit, available_slots, date, center_name,
         topic_name=topic_name,
         message_title=f"Vaccine slots open for {age_limit}+ age group",
         message_body=f"There are {available_slots} slots available on {date} at {center_name}, {center_address}.",
+        message_icon=message_icon_url,
         color='blue'
     )
 
