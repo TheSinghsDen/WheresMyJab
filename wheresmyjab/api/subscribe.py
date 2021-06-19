@@ -26,7 +26,7 @@ class SubscribeViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin,):
             name=district_name,
         )
 
-        topic = Topics.objects.get_or_create(
+        topic, _ = Topics.objects.get_or_create(
             name=topic_name,
             district_id=district_id,
             defaults={'last_notified_at': timezone.now() - timedelta(hours=1)},
