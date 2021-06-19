@@ -150,8 +150,10 @@ const FindSlots: React.FC = () => {
             </Row>
 
             <Row justify="center" align="middle" className="footer" style={{ display: hidden ? 'none' : 'flex' }}>
-                <GithubOutlined className="github" />
-                <Text type="secondary"> Source on Github </Text>
+                <A href="https://github.com/TheSinghsDen/WheresMyJab" target="_blank">
+                    <GithubOutlined className="github" />
+                    <Text type="secondary"> Source on Github </Text>
+                </A>
             </Row>
         </div>
     )
