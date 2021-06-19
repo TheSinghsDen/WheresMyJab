@@ -2,7 +2,7 @@
 set -e
 
 help () {
-  echo "$0 - start PostHog's Celery worker"
+  echo "$0 - start WheresMyJab's Celery worker"
   echo
   echo "$0 [options]"
   echo

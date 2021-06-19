@@ -10,6 +10,9 @@ WheresMyJab
 <h3 align="center">
 WheresMyJab is an open-source platform that uses CoWIN API to help people find the available vaccination slots around their location.
 WheresMyJab is further integrated with relevant filters to customise the search on the basis of district, age, choice of vaccine, and free or paid vaccination centres. The platform will also notify the users when a slot opens up in the case of unavailability of the COVID-19 vaccine slots around them.
+<a href="https://wheresmyjab.com/">
+    www.wheresmyjab.com
+</a>
 </h3>
 
 <br /><br />
@@ -129,4 +132,8 @@ Additional Tools 🛠️
 <a href="https://pypi.org/project/black/">
    Black
 </a>
+</h3>
+<br/><br/>
+<h3 align="center">
+💚 Design Inspired By - VaccinateMe  💚
 </h3>
