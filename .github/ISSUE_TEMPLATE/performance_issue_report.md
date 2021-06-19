@@ -16,4 +16,4 @@ _Please describe._
 
 ## Additional context
 
-#### _Thank you_ for your performance issue report – we want PostHog to go supersonic!
+#### _Thank you_ for your performance issue report – we want WheresMyJab to go supersonic!
