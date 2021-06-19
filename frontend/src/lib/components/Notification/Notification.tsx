@@ -17,6 +17,8 @@ const Notifications: React.FC = () => {
         }
     }, [])
 
+    console.log(process.env.API_URL)
+
     const resetUI = (): void => {
         if (Notification.permission === 'granted') {
             messaging
@@ -40,13 +42,13 @@ const Notifications: React.FC = () => {
     }
 
     const sendTokenToServer = (currentToken: string): void => {
-        if (token !== currentToken && filterSettings !== "") {
+        if (token !== currentToken && filterSettings !== '') {
             const payload = {
                 topic_name: filterSettings,
-                device_token: currentToken
+                device_token: currentToken,
             }
 
-            subscribeToTopic(payload) 
+            subscribeToTopic(payload)
         }
     }
 
