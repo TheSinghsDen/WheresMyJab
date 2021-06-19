@@ -46,7 +46,7 @@ const FindSlots: React.FC = () => {
             </Row>
 
             <Row justify="center" align="middle" className="description">
-                <Text type="secondary"> Search for vaccination slots • Get real-time data from CoWIN</Text>
+                <Text type="secondary"> Search for vaccination slots • Get instantly notified when available</Text>
             </Row>
 
             <Row justify="center" align="middle" className="pa">
