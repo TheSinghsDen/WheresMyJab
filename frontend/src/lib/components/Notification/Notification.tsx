@@ -17,8 +17,6 @@ const Notifications: React.FC = () => {
         }
     }, [])
 
-    console.log(process.env.API_URL)
-
     const resetUI = (): void => {
         if (Notification.permission === 'granted') {
             messaging
