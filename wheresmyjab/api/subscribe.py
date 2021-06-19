@@ -1,5 +1,6 @@
 from rest_framework import viewsets, mixins, serializers, status
 from rest_framework.response import Response
+from django.db.models import F
 from datetime import timedelta
 from django.utils import timezone
 from wheresmyjab.models import Districts, Topics
@@ -36,6 +37,10 @@ class SubscribeViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin,):
                 tokens=[device_token], topic=topic_name)
 
             if isSubscribed:
+                # Update registered devices count
+                topic.device_count = F("device_count") + 1
+                topic.save(update_fields=["device_count"])
+
                 return Response({"detail": "Device has been registered with the provided topic"})
 
             else:
