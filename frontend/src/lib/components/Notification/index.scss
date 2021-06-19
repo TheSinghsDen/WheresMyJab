@@ -1,0 +1,94 @@
+.alert_subscribe {
+    font-size: 0.875rem;
+    font-weight: 600;
+    border: 1px solid rgb(21, 101, 192);
+    border-radius: 8px;
+}
+
+.alert_unsubscribe {
+    font-size: 0.875rem;
+    font-weight: 600;
+    border: 1px solid #faad14;
+    border-radius: 8px;
+}
+
+.bell_subscribe {
+    fill: rgb(21, 101, 192);
+}
+
+.bell_unsubsctibe {
+    fill: #faad14;
+}
+
+.rightIcon {
+    margin-top: 50%;
+}
+
+.dialog_title {
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.dialog_description {
+    font-size: 0.875rem;
+}
+
+.turn_on_button {
+    font-weight: 800;
+    color: #40a9ff;
+}
+
+.turn_off_button {
+    font-weight: 800;
+    color: #e91e63;
+}
+
+.hedgehog {
+    width: 80px;
+    filter: invert(42%) sepia(29%) saturate(7086%) hue-rotate(326deg) brightness(101%) contrast(99%);
+    opacity: 0.7;
+}
+
+.sending_token_animation {
+    min-width: 296px;
+    height: 144px;
+    display: flex;
+    place-content: center;
+    align-items: center;
+}
+
+.loading {
+    color: #1a90ff;
+}
+
+.logo_hide {
+    display: none;
+}
+
+.logo_show {
+    animation: jump_out 0.3s 1;
+    width: 9rem;
+}
+
+@keyframes jump_out {
+    0% {
+        transform: rotate(300deg);
+        width: 5rem;
+    }
+    25% {
+        transform: rotate(315deg);
+        width: 6rem;
+    }
+    50% {
+        transform: rotate(330deg);
+        width: 7rem;
+    }
+    75% {
+        transform: rotate(345deg);
+        width: 8rem;
+    }
+    100% {
+        transform: rotate(360deg);
+        width: 9rem;
+    }
+}

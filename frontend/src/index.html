@@ -61,5 +61,22 @@
             }
         </script>
         <div id="root"></div>
+        <script src="/__/firebase/8.6.3/firebase-app.js"></script>
+        <script src="/__/firebase/8.6.3/firebase-messaging.js"></script>
+        <script src="/__/firebase/init.js"></script>
+        <script>
+            {
+                // Retrieve Firebase Messaging object.
+                const messaging = firebase.messaging()
+
+                // Handle incoming messages. Called when:
+                // - a message is received while the app has focus
+                // - the user clicks on an app notification created by a service worker
+                //   `messaging.onBackgroundMessage` handler.
+                messaging.onMessage((payload) => {
+                    console.log('Message received. ', payload)
+                })
+            }
+        </script>
     </body>
 </html>

@@ -1,8 +1,4 @@
-.contribute {
-    padding: 10px;
-}
-
-.title {
+.title_box {
     padding: 20px 0 0 10px;
     margin-top: 50px;
 }
@@ -31,10 +27,12 @@
     position: fixed;
     bottom: 0;
     width: 100%;
+    font-size: 1rem;
 }
 
-.heart {
-    padding-right: 3px;
-    padding-left: 3px;
+.github {
+    padding-right: 6px;
+    padding-left: 6px;
     color: rgba(0, 0, 0, 0.45);
+    font-size: 1.5rem;
 }

@@ -12,7 +12,7 @@ import './index.scss'
 const { Text, Title } = Typography
 const { Option } = Select
 
-const ListAllSlots = (): JSX.Element => {
+const ListAllSlots: React.FC = () => {
     const { districts, selectedDistrict } = useValues(findSlotsLogic)
     const { setUniversalSelectedDistrict } = useActions(findSlotsLogic)
     const { slotsLoading } = useValues(listAllSlotsLogic)

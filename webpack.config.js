@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* global require, module, process, __dirname */
 const path = require('path')
+const webpack = require('webpack')
+const dotenv = require('dotenv')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin')
@@ -31,6 +33,13 @@ function createEntry(entry) {
             loader: 'postcss-loader',
         },
     ]
+
+    const env = dotenv.config().parsed
+
+    const envKeys = Object.keys(env).reduce((prev, next) => {
+        prev[`process.env.${next}`] = JSON.stringify(env[next])
+        return prev
+    }, {})
 
     return {
         name: entry,
@@ -177,6 +186,7 @@ function createEntry(entry) {
                 languages: ['json', 'javascript'],
             }),
             new AntdDayjsWebpackPlugin(),
+            new webpack.DefinePlugin(envKeys),
             // common plugins for all entrypoints
         ].concat(
             entry === 'main'

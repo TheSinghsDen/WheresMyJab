@@ -1,0 +1,4 @@
+#!/bin/bash
+set -e
+
+DEBUG=1 python3 manage.py makemigrations wheresmyjab
