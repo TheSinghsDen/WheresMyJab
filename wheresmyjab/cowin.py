@@ -22,13 +22,13 @@ def is_topic_available_for_notification(topic_name):
         return False
 
 
-def send_notification(topic_name, age_limit, available_slots, date, center_name, center_address):
+def send_notification(topic_name, district_name, available_slots, date, center_name, center_address):
     print(f"Sending notification for topic {topic_name}")
 
     response = fcm_send_topic_message(
         topic_name=topic_name,
-        message_title=f"Vaccine slots open for {age_limit}+ age group",
-        message_body=f"There are {available_slots} slots available on {date} at {center_name}, {center_address}.",
+        message_title=f"Slots open in {district_name}",
+        message_body=f"There are {available_slots} vaccination slots available on {date} at {center_name}, {center_address}.",
         message_icon=message_icon_url,
         extra_kwargs={
             "webpush": {
@@ -79,7 +79,7 @@ def fetch_slots_in_district(district_id):
                     if is_topic_available_for_notification(topic_name):
                         send_notification(
                             topic_name,
-                            session['min_age_limit'],
+                            center['district_name'],
                             session['available_capacity_dose1'],
                             session['date'],
                             center['name'],
@@ -93,7 +93,7 @@ def fetch_slots_in_district(district_id):
                     if is_topic_available_for_notification(topic_name):
                         send_notification(
                             topic_name,
-                            session['min_age_limit'],
+                            center['district_name'],
                             session['available_capacity_dose1'],
                             session['date'],
                             center['name'],
@@ -107,7 +107,7 @@ def fetch_slots_in_district(district_id):
                     if is_topic_available_for_notification(topic_name):
                         send_notification(
                             topic_name,
-                            session['min_age_limit'],
+                            center['district_name'],
                             session['available_capacity_dose2'],
                             session['date'],
                             center['name'],
@@ -121,7 +121,7 @@ def fetch_slots_in_district(district_id):
                     if is_topic_available_for_notification(topic_name):
                         send_notification(
                             topic_name,
-                            session['min_age_limit'],
+                            center['district_name'],
                             session['available_capacity_dose2'],
                             session['date'],
                             center['name'],
