@@ -84,7 +84,7 @@ Backend ⚙️
 </a> 
 </h3>
 <h3>
-•  Notifications
+•  Notifications:
 <a href="https://firebase.google.com/docs/cloud-messaging">
     Firebase Cloud Messaging
 </a> 
