@@ -79,8 +79,14 @@ Backend ⚙️
 </h3>
 <h3>
 •  Task Worker:
-<a href=https://docs.celeryproject.org/en/stable/">
+<a href="https://docs.celeryproject.org/en/stable/">
     Celery
+</a> 
+</h3>
+<h3>
+•  Notifications
+<a href="https://firebase.google.com/docs/cloud-messaging">
+    Firebase Cloud Messaging
 </a> 
 </h3>
 <br/>
