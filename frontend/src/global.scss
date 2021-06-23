@@ -51,66 +51,6 @@ style files without adding already imported styles. */
     --lifecycle-dormant-hover: #{darken($lifecycle_dormant, 20%)};
 }
 
-// Text styles
-.text-default {
-    color: $text_default;
-    font-size: 14px;
-    line-height: 20px;
-    font-weight: 400;
-}
-
-.text-small {
-    @extend .text-default;
-    font-size: 12px;
-}
-
-.text-extra-small {
-    @extend .text-default;
-    font-size: 10px;
-}
-
-.page-title-row {
-    margin-top: 16px;
-}
-
-.page-title {
-    font-size: 28px;
-    line-height: 34px;
-    margin-top: 0.5em;
-    font-weight: 700;
-    color: $text_default;
-    font-family: $gosha_sans;
-}
-
-.page-caption {
-    @extend .text-default;
-    max-width: 640px;
-    margin-bottom: 32px;
-}
-
-.subtitle-row {
-    margin-top: 8px;
-}
-
-.subtitle {
-    display: flex;
-    align-items: center;
-    margin-top: 12px;
-    font-size: 22px;
-    line-height: 26px;
-    font-weight: 700;
-    &.highlighted {
-        padding: $default_spacing $default_spacing $default_spacing $default_spacing / 2;
-    }
-}
-
-.l3 {
-    /* Level 3 title (ideally H3) */
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 19px;
-}
-
 .text-right {
     text-align: right;
 }
@@ -125,14 +65,6 @@ style files without adding already imported styles. */
 
 .text-muted {
     color: $text_muted;
-}
-
-code.code {
-    // Temporary: .code class to transition legacy elements
-    color: $danger;
-    background-color: $bg_mid;
-    border-radius: $radius;
-    padding: 2px 6px;
 }
 
 // Spacing & layout
@@ -231,14 +163,6 @@ code.code {
 
 .full-width {
     width: 100%;
-}
-
-.float-right {
-    float: right;
-}
-
-.float-left {
-    float: left;
 }
 
 .space-between-items {

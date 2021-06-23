@@ -11,11 +11,16 @@ const useStyles = makeStyles((theme) => ({
         height: '100vh',
     },
     image: {
-        backgroundImage: 'url(./desktop_background.png)',
-        backgroundRepeat: 'no-repeat',
-        backgroundColor: theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        [theme.breakpoints.up('sm')]: {
+            backgroundImage: 'url(./desktop_background.png)',
+            backgroundRepeat: 'no-repeat',
+            backgroundColor: theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+        },
+        [theme.breakpoints.down('sm')]: {
+            display: 'none',
+        },
     },
     paper: {
         display: 'flex',
@@ -31,9 +36,6 @@ const useStyles = makeStyles((theme) => ({
             alignItems: 'center',
             height: '100%',
             placeContent: 'center',
-        },
-        [theme.breakpoints.down('sm')]: {
-            display: 'none',
         },
     },
     textbox: {
