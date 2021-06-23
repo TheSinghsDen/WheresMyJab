@@ -4,36 +4,6 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <title>WheresMyJab</title>
-    </head>
-    <body>
-        <script>
-            if (typeof Object.entries === 'undefined') {
-                var div = document.createElement('div')
-                div.style.color = '#fef6f6'
-                div.style.background = '#920c0c'
-                div.style.padding = '5px 10px'
-                div.innerHTML = 'You are using a really old browser. Please upgrade !'
-                document.body.prepend(div)
-            }
-        </script>
-        <div id="root"></div>
-        <script src="/__/firebase/8.6.3/firebase-app.js"></script>
-        <script src="/__/firebase/8.6.3/firebase-messaging.js"></script>
-        <script src="/__/firebase/init.js"></script>
-        <script>
-            {
-                // Retrieve Firebase Messaging object.
-                const messaging = firebase.messaging()
-
-                // Handle incoming messages. Called when:
-                // - a message is received while the app has focus
-                // - the user clicks on an app notification created by a service worker
-                //   `messaging.onBackgroundMessage` handler.
-                messaging.onMessage((payload) => {
-                    console.log('Message received. ', payload)
-                })
-            }
-        </script>
         <script>
             !(function (t, e) {
                 var o, n, p, r
@@ -77,6 +47,36 @@
                     (e.__SV = 1))
             })(document, window.posthog || [])
             posthog.init('X2jpMfG6XE4LDdh_VBuNvjXoelYBDABzqllxJ0kfrBw', { api_host: 'https://app.posthog.com' })
+        </script>
+    </head>
+    <body>
+        <script>
+            if (typeof Object.entries === 'undefined') {
+                var div = document.createElement('div')
+                div.style.color = '#fef6f6'
+                div.style.background = '#920c0c'
+                div.style.padding = '5px 10px'
+                div.innerHTML = 'You are using a really old browser. Please upgrade !'
+                document.body.prepend(div)
+            }
+        </script>
+        <div id="root"></div>
+        <script src="/__/firebase/8.6.3/firebase-app.js"></script>
+        <script src="/__/firebase/8.6.3/firebase-messaging.js"></script>
+        <script src="/__/firebase/init.js"></script>
+        <script>
+            {
+                // Retrieve Firebase Messaging object.
+                const messaging = firebase.messaging()
+
+                // Handle incoming messages. Called when:
+                // - a message is received while the app has focus
+                // - the user clicks on an app notification created by a service worker
+                //   `messaging.onBackgroundMessage` handler.
+                messaging.onMessage((payload) => {
+                    console.log('Message received. ', payload)
+                })
+            }
         </script>
     </body>
 </html>
