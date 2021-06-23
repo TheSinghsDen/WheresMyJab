@@ -51,6 +51,7 @@ const FindSlots: React.FC = () => {
 
             <Row justify="center" align="middle" className="pa">
                 <Select
+                    aria-label="Select State"
                     showSearch
                     style={{ width: '100%' }}
                     size="large"
@@ -86,6 +87,7 @@ const FindSlots: React.FC = () => {
                     <Skeleton active />
                 ) : (
                     <Select
+                        aria-label="Select District"
                         showSearch
                         style={{ width: '100%', display: selectedState ? 'block' : 'none' }}
                         size="large"
@@ -150,7 +152,7 @@ const FindSlots: React.FC = () => {
             </Row>
 
             <Row justify="center" align="middle" className="footer" style={{ display: hidden ? 'none' : 'flex' }}>
-                <A href="https://github.com/TheSinghsDen/WheresMyJab" target="_blank">
+                <A href="https://github.com/TheSinghsDen/WheresMyJab" target="_blank" rel="noopener">
                     <GithubOutlined className="github" />
                     <Text type="secondary"> Source on Github </Text>
                 </A>

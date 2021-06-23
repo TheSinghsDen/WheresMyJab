@@ -17,6 +17,7 @@ const CentersSessionCard: React.FC<CardProps> = ({ details }) => {
             <CardActionArea
                 href={details[appliedDoseFilter] > 0 ? 'https://selfregistration.cowin.gov.in/' : ''}
                 target="_blank"
+                rel="noopener"
             >
                 <Row>
                     <Col span={18}>
