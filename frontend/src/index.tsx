@@ -6,14 +6,28 @@ import { getContext } from 'kea'
 import ResponsiveApp from './scenes/ResponsiveApp'
 import { initKea } from './initKea'
 
-import { GlobalStyles } from './GlobalStyles'
+const LightTheme = React.lazy(() => import('./LightStyles'))
+const DarkTheme = React.lazy(() => import('./DarkStyles'))
+
+const ThemeSelector: React.FC = ({ children }) => {
+    return (
+        <>
+            <React.Suspense fallback={<></>}>
+                <DarkTheme />
+                <LightTheme />
+            </React.Suspense>
+            {children}
+        </>
+    )
+}
 
 initKea()
 
 ReactDOM.render(
     <Provider store={getContext().store}>
-        <GlobalStyles />
-        <ResponsiveApp />
+        <ThemeSelector>
+            <ResponsiveApp />
+        </ThemeSelector>
     </Provider>,
     document.getElementById('root')
 )

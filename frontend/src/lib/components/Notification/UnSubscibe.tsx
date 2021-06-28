@@ -8,7 +8,7 @@ import { useValues, useActions } from 'kea'
 import { notificationLogic } from './notificationLogic'
 import './index.scss'
 
-const messaging = firebase.messaging()
+// const messaging = firebase.messaging()
 
 const { Text } = Typography
 

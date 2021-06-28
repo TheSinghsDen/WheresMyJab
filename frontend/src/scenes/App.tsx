@@ -4,6 +4,10 @@ import { Layout } from 'antd'
 import { makeStyles } from '@material-ui/core/styles'
 import { sceneLogic } from './sceneLogic'
 import { SceneLoading } from '../lib/utils'
+import useDarkMode from 'use-dark-mode'
+
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import CssBaseline from '@material-ui/core/CssBaseline'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -15,18 +19,32 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const App: React.FC = () => {
+    const prefersDarkMode = useDarkMode().value
     const classes = useStyles()
     const { scene, params, loadedScenes } = useValues(sceneLogic)
 
     const SceneComponent = loadedScenes[scene]?.component || (() => <SceneLoading />)
 
+    const theme = React.useMemo(
+        () =>
+            createMuiTheme({
+                palette: {
+                    type: prefersDarkMode ? 'dark' : 'light',
+                },
+            }),
+        [prefersDarkMode]
+    )
+
     return (
         <>
-            <Layout className={classes.root}>
-                <Layout.Content>
-                    <SceneComponent {...params} />
-                </Layout.Content>
-            </Layout>
+            <ThemeProvider theme={theme}>
+                <CssBaseline />
+                <Layout className={classes.root}>
+                    <Layout.Content>
+                        <SceneComponent {...params} />
+                    </Layout.Content>
+                </Layout>
+            </ThemeProvider>
         </>
     )
 }

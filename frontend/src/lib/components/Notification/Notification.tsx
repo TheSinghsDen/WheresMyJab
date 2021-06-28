@@ -5,7 +5,7 @@ import Subscribe from './Subscribe'
 import UnSubscribe from './UnSubscibe'
 import './index.scss'
 
-const messaging = firebase.messaging()
+// const messaging = firebase.messaging()
 
 const Notifications: React.FC = () => {
     const { setTokenSentToServer, subscribeToTopic } = useActions(notificationLogic)

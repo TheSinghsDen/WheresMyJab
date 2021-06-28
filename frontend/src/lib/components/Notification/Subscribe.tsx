@@ -12,7 +12,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import logo from 'public/logo.png'
 import './index.scss'
 
-const messaging = firebase.messaging()
+// const messaging = firebase.messaging()
 
 const images = {
     sad,
@@ -26,7 +26,7 @@ const { Text } = Typography
 const Subscribe: React.FC = () => {
     const [openDialog, setOpenDialog] = useState(false)
     const { selectedDistrict, selectedDistrictName, dose, selectedAgeGroup } = useValues(findSlotsLogic)
-    const { setTokenSentToServer, setFilterSettings, subscribeToTopic,setToken } = useActions(notificationLogic)
+    const { setTokenSentToServer, setFilterSettings, subscribeToTopic, setToken } = useActions(notificationLogic)
     const { filterSettings } = useValues(notificationLogic)
     const [loading, setLoading] = useState(false)
     const [dialogStatus, setDialogStatus] = useState(AskPermissionFirst)
@@ -60,22 +60,24 @@ const Subscribe: React.FC = () => {
     }
 
     const sendTokenToServer = (currentToken: string): void => {
-        const topic_name = `${selectedDistrict}_${selectedDistrictName}_${selectedAgeGroup}_${dose == 'available_capacity_dose1' ? 'dose1' : 'dose2'}`
+        const topic_name = `${selectedDistrict}_${selectedDistrictName}_${selectedAgeGroup}_${
+            dose == 'available_capacity_dose1' ? 'dose1' : 'dose2'
+        }`
         console.log('Sending token to server...', currentToken)
         const payload = {
-            topic_name: topic_name.replace(/ /g,''),
-            device_token: currentToken
+            topic_name: topic_name.replace(/ /g, ''),
+            device_token: currentToken,
         }
         subscribeToTopic(payload)
-        console.log(topic_name.replace(/ /g,''))
+        console.log(topic_name.replace(/ /g, ''))
         setLoading(false)
         setFilterSettings(topic_name)
         setToken(currentToken)
         setTimeout(() => {
             setTokenSentToServer(true)
-        }, 10000);
+        }, 10000)
     }
-1
+    1
 
     const requestPermission = (): void => {
         setDialogStatus(SendTokenToServer)

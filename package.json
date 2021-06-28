@@ -43,8 +43,6 @@
         "antd-dayjs-webpack-plugin": "^1.0.6",
         "babel-preset-nano-react-app": "^0.1.0",
         "core-js": "3.6.5",
-        "d3": "^5.15.0",
-        "d3-sankey": "^0.12.3",
         "dayjs": "^1.10.4",
         "dotenv": "^10.0.0",
         "kea": "^2.3.8",
@@ -56,13 +54,15 @@
         "prop-types": "^15.7.2",
         "query-selector-shadow-dom": "0.8.0",
         "react": "^16.13.1",
+        "react-css-theme-switcher": "^0.3.0",
         "react-dom": "^16.12.0",
         "react-monaco-editor": "^0.40.0",
         "react-redux": "^7.2.0",
         "react-toastify": "^5.5.0",
         "redux": "^4.0.5",
         "reselect": "^4.0.0",
-        "sass": "^1.26.2"
+        "sass": "^1.26.2",
+        "use-dark-mode": "^2.3.1"
     },
     "devDependencies": {
         "@babel/plugin-proposal-class-properties": "^7.10.4",

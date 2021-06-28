@@ -1,10 +1,13 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { Row, Typography, Select, Radio, Button, Skeleton } from 'antd'
 import { GithubOutlined } from '@ant-design/icons'
+import NightsStayIcon from '@material-ui/icons/NightsStay'
+import Brightness5Icon from '@material-ui/icons/Brightness5'
 import { findSlotsLogic } from './findSlotsLogic'
 import './index.scss'
 import { useActions, useValues } from 'kea'
 import { A } from 'kea-router'
+import useDarkMode from 'use-dark-mode'
 
 const { Title, Text } = Typography
 const { Option } = Select
@@ -21,6 +24,8 @@ const FindSlots: React.FC = () => {
 
     const [hidden, setHidden] = useState(false)
 
+    const darkMode = useDarkMode(false)
+
     const handleStateChange = (v): void => {
         setSelectedState(v)
         setTimeout(() => {
@@ -35,12 +40,56 @@ const FindSlots: React.FC = () => {
         }, 20)
     }
 
+    const toggleTheme = (): void => {
+        document.querySelector('.sun-logo').classList.toggle('animate-sun')
+        document.querySelector('.moon-logo').classList.toggle('animate-moon')
+        darkMode.toggle()
+    }
+    const prefersDarkMode = darkMode.value
+
+    useEffect(() => {
+        let darkStyleSheet
+        let lightStyleSheet
+
+        for (let i = 0; i < document.styleSheets.length; i++) {
+            if (document.styleSheets.item(i).href?.includes('DarkStyles')) {
+                darkStyleSheet = document.styleSheets.item(i)
+            } else if (document.styleSheets.item(i).href?.includes('LightStyles')) {
+                lightStyleSheet = document.styleSheets.item(i)
+            }
+        }
+
+        if (prefersDarkMode) {
+            if (lightStyleSheet !== undefined && darkStyleSheet !== undefined) {
+                lightStyleSheet.disabled = true
+                darkStyleSheet.disabled = false
+            }
+        } else {
+            if (lightStyleSheet !== undefined && darkStyleSheet !== undefined) {
+                darkStyleSheet.disabled = true
+                lightStyleSheet.disabled = false
+            }
+        }
+    }, [prefersDarkMode])
+
     useEffect(() => {
         !states && loadStates()
     }, [])
 
     return (
         <div>
+            <Row justify="end" align="middle" className="pa">
+                <div className="container">
+                    <div className="sun sun-logo">
+                        <Brightness5Icon onClick={toggleTheme} />
+                    </div>
+
+                    <div className="moon moon-logo">
+                        <NightsStayIcon onClick={toggleTheme} />
+                    </div>
+                </div>
+            </Row>
+
             <Row justify="center" align="middle" className="title_box">
                 <Title level={2}>WheresMyJab</Title>
             </Row>
