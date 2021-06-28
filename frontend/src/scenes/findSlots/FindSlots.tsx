@@ -21,10 +21,10 @@ const FindSlots: React.FC = () => {
     // This will hold reference to `<Select>`
     const stateRef = useRef(null)
     const districtRef = useRef(null)
-
     const [hidden, setHidden] = useState(false)
 
-    const darkMode = useDarkMode(false)
+    const darkMode = useDarkMode(localStorage.getItem('darkMode') || false)
+    const prefersDarkMode = darkMode.value
 
     const handleStateChange = (v): void => {
         setSelectedState(v)
@@ -40,36 +40,22 @@ const FindSlots: React.FC = () => {
         }, 20)
     }
 
-    const toggleTheme = (): void => {
-        document.querySelector('.sun-logo').classList.toggle('animate-sun')
-        document.querySelector('.moon-logo').classList.toggle('animate-moon')
-        darkMode.toggle()
-    }
-    const prefersDarkMode = darkMode.value
-
-    useEffect(() => {
-        let darkStyleSheet
-        let lightStyleSheet
-
-        for (let i = 0; i < document.styleSheets.length; i++) {
-            if (document.styleSheets.item(i).href?.includes('DarkStyles')) {
-                darkStyleSheet = document.styleSheets.item(i)
-            } else if (document.styleSheets.item(i).href?.includes('LightStyles')) {
-                lightStyleSheet = document.styleSheets.item(i)
-            }
-        }
-
+    const changeTheme = (): void => {
         if (prefersDarkMode) {
-            if (lightStyleSheet !== undefined && darkStyleSheet !== undefined) {
-                lightStyleSheet.disabled = true
-                darkStyleSheet.disabled = false
+            if (window.getComputedStyle(document.querySelector('.sun-logo')).opacity) {
+                document.querySelector('.sun-logo').classList.toggle('animate-sun')
+                document.querySelector('.moon-logo').classList.toggle('animate-moon')
             }
         } else {
-            if (lightStyleSheet !== undefined && darkStyleSheet !== undefined) {
-                darkStyleSheet.disabled = true
-                lightStyleSheet.disabled = false
+            if (!window.getComputedStyle(document.querySelector('.sun-logo')).opacity) {
+                document.querySelector('.sun-logo').classList.toggle('animate-sun')
+                document.querySelector('.moon-logo').classList.toggle('animate-moon')
             }
         }
+    }
+
+    useEffect(() => {
+        changeTheme()
     }, [prefersDarkMode])
 
     useEffect(() => {
@@ -81,11 +67,11 @@ const FindSlots: React.FC = () => {
             <Row justify="end" align="middle" className="pa">
                 <div className="container">
                     <div className="sun sun-logo">
-                        <Brightness5Icon onClick={toggleTheme} />
+                        <Brightness5Icon onClick={() => darkMode.toggle()} />
                     </div>
 
                     <div className="moon moon-logo">
-                        <NightsStayIcon onClick={toggleTheme} />
+                        <NightsStayIcon onClick={() => darkMode.toggle()} />
                     </div>
                 </div>
             </Row>

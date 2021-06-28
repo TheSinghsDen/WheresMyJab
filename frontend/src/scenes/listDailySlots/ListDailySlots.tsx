@@ -50,7 +50,7 @@ const ListDailySlots: React.FC = () => {
                         mode="date"
                         format="DD-MM-YYYY"
                         bordered={false}
-                        suffixIcon={<CalendarOutlined style={{ color: 'black', fontSize: '16px' }} />}
+                        suffixIcon={<CalendarOutlined style={{ fontSize: '16px' }} />}
                         disabledDate={(current) => {
                             return current < moment().subtract(1, 'day') || current > moment().add(1, 'month')
                         }}
