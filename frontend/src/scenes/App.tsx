@@ -24,6 +24,7 @@ const App: React.FC = () => {
     const { scene, params, loadedScenes } = useValues(sceneLogic)
 
     const SceneComponent = loadedScenes[scene]?.component || (() => <SceneLoading />)
+    console.log(document.getElementsByTagName('*'))
 
     const theme = React.useMemo(
         () =>

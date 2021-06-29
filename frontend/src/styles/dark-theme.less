@@ -1,11 +1,12 @@
 /* This file sets theming configuration on Ant Design for WheresMyJab. Ant uses LESS which is incompatible
 with SASS, leading to duplicated config. When changing any variable here, please remember to update vars.scss too  */
+
 @import '~antd/lib/style/color/colorPalette.less';
-@import 'antd/lib/style/themes/default.less';
+@import '~antd/lib/style/themes/dark.less';
 @import 'antd/dist/antd.less';
 
-@text-color: #2d2d2d;
-@text-muted: #d9d9d9;
+@text-color: #fff;
+@text-muted: rgba(255, 255, 255, 0.7);
 @primary-color: #40a9ff;
 @link-color: #5375ff;
 @success-color: #77b96c;
@@ -13,13 +14,13 @@ with SASS, leading to duplicated config. When changing any variable here, please
 @error-color: #f96132;
 @font-size-base: 14px;
 @heading-color: @text-color;
-@text-color-secondary: rgba(0, 0, 0, 0.45);
+@text-color-secondary: rgba(255, 255, 255, 0.7);
 @disabled-color: @text-muted;
 @border-radius-base: 2px;
 @border-color-base: #d9d9d9;
-@body-background:  #fff;
-@layout-body-background: #fff;
-@icon-color: #303030;
+@body-background:  #303030;
+@layout-body-background: #303030;
+@icon-color: #fff;
 
 .hide-gte-lg {
     display: none !important;

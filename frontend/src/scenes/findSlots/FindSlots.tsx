@@ -7,7 +7,6 @@ import { findSlotsLogic } from './findSlotsLogic'
 import './index.scss'
 import { useActions, useValues } from 'kea'
 import { A } from 'kea-router'
-import useDarkMode from 'use-dark-mode'
 
 const { Title, Text } = Typography
 const { Option } = Select
@@ -23,8 +22,35 @@ const FindSlots: React.FC = () => {
     const districtRef = useRef(null)
     const [hidden, setHidden] = useState(false)
 
-    const darkMode = useDarkMode(localStorage.getItem('darkMode') || false)
-    const prefersDarkMode = darkMode.value
+    const [theme, setTheme] = useState('light-theme')
+
+    // useEffect(() => {
+    //     let els = document.getElementsByTagName("*")
+    //     console.log(els)
+    //     if (theme === 'light-theme') {
+    //         for (let i = 0, all = els.length; i < all; i++){
+    //             els[i].classList.remove('dark-theme')
+    //             els[i].classList.add('light-theme')
+    //         }
+    //     } else {
+    //         for (let i = 0, all = els.length; i < all; i++){
+    //             els[i].classList.remove('light-theme')
+    //             els[i].classList.add('dark-theme')
+    //         }
+    //     }
+    // }, [theme])
+
+    useEffect(() => {
+        if (theme === 'light-theme') {
+            document.body.classList.add('light-theme')
+        } else {
+            document.body.classList.remove('light-theme')
+        }
+    }, [theme])
+
+    const changeTheme = (): void => {
+        setTheme(theme === 'light-theme' ? 'dark-theme' : 'light-theme')
+    }
 
     const handleStateChange = (v): void => {
         setSelectedState(v)
@@ -40,23 +66,23 @@ const FindSlots: React.FC = () => {
         }, 20)
     }
 
-    const changeTheme = (): void => {
-        if (prefersDarkMode) {
-            if (window.getComputedStyle(document.querySelector('.sun-logo')).opacity) {
-                document.querySelector('.sun-logo').classList.toggle('animate-sun')
-                document.querySelector('.moon-logo').classList.toggle('animate-moon')
-            }
-        } else {
-            if (!window.getComputedStyle(document.querySelector('.sun-logo')).opacity) {
-                document.querySelector('.sun-logo').classList.toggle('animate-sun')
-                document.querySelector('.moon-logo').classList.toggle('animate-moon')
-            }
-        }
-    }
+    // const changeTheme = (): void => {
+    //     if (prefersDarkMode) {
+    //         if (window.getComputedStyle(document.querySelector('.sun-logo')).opacity) {
+    //             document.querySelector('.sun-logo').classList.toggle('animate-sun')
+    //             document.querySelector('.moon-logo').classList.toggle('animate-moon')
+    //         }
+    //     } else {
+    //         if (!window.getComputedStyle(document.querySelector('.sun-logo')).opacity) {
+    //             document.querySelector('.sun-logo').classList.toggle('animate-sun')
+    //             document.querySelector('.moon-logo').classList.toggle('animate-moon')
+    //         }
+    //     }
+    // }
 
-    useEffect(() => {
-        changeTheme()
-    }, [prefersDarkMode])
+    // useEffect(() => {
+    //     changeTheme()
+    // }, [prefersDarkMode])
 
     useEffect(() => {
         !states && loadStates()
@@ -67,11 +93,11 @@ const FindSlots: React.FC = () => {
             <Row justify="end" align="middle" className="pa">
                 <div className="container">
                     <div className="sun sun-logo">
-                        <Brightness5Icon onClick={() => darkMode.toggle()} />
+                        <Brightness5Icon onClick={changeTheme} />
                     </div>
 
                     <div className="moon moon-logo">
-                        <NightsStayIcon onClick={() => darkMode.toggle()} />
+                        <NightsStayIcon onClick={changeTheme} />
                     </div>
                 </div>
             </Row>
